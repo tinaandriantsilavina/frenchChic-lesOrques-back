@@ -1,0 +1,21 @@
+.left-side-background{
+    -fx-background-color: #f2fffe
+}
+
+.transparent{
+    -fx-background-color: rgba(0,0,0,0);
+}
+
+.border{
+    -fx-border-color:#87ffea;
+    -fx-border-width: 1.5;
+}
+
+.right-side-border{
+    -fx-border-color:#87ffea;
+    -fx-border-width: 0 1.5 0 0;
+}
+
+.btn-login{
+    -fx-background-color: #00a1aa;
+}

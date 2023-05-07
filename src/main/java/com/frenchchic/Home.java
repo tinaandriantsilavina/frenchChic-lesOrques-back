@@ -11,8 +11,8 @@ import java.io.IOException;
 public class Home extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(new File("src/main/java/com/frenchchic/view/hello-view.fxml").toURI().toURL());
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        FXMLLoader fxmlLoader = new FXMLLoader(new File("src/main/java/com/frenchchic/view/login.fxml").toURI().toURL());
+        Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("French Chic");
         stage.setScene(scene);
         stage.show();
