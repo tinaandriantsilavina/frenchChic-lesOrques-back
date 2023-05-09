@@ -8,4 +8,6 @@ module com.frenchchic {
     exports com.frenchchic;
     exports com.frenchchic.controller;
     opens com.frenchchic.controller to javafx.fxml;
+    exports com.frenchchic.view;
+    opens com.frenchchic.view to javafx.fxml;
 }
