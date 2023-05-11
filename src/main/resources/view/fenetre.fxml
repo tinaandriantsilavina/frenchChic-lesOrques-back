@@ -12,7 +12,7 @@
    <children>
       <ImageView fitHeight="263.0" fitWidth="490.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../resources/img/logo.PNG" />
+            <Image url="@../img/logo.PNG" />
          </image>
       </ImageView>
       <Label alignment="CENTER" prefHeight="63.0" prefWidth="374.0" text="Bienvenu chez French Chic">
@@ -23,7 +23,7 @@
             <Insets top="50.0" />
          </VBox.margin>
       </Label>
-      <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="218.0" styleClass="btn-login" stylesheets="@../../../values/style.css" text="Voir plus" textFill="WHITE">
+      <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="218.0" styleClass="btn-login" stylesheets="@../values/style.css" text="Voir plus" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>

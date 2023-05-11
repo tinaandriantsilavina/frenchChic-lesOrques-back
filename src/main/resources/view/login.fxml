@@ -14,11 +14,11 @@
 
 <HBox accessibleRole="IMAGE_VIEW" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.frenchchic.controller.Login">
    <children>
-      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="400.0" styleClass="btn-login" stylesheets="@../../../values/style.css">
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="400.0" styleClass="btn-login" stylesheets="@../values/style.css">
          <children>
             <ImageView fitHeight="224.0" fitWidth="396.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../resources/img/logo.PNG" />
+                  <Image url="@../img/logo.PNG" />
                </image>
                <VBox.margin>
                   <Insets top="170.0" />
@@ -30,11 +30,11 @@
          <children>
             <HBox nodeOrientation="RIGHT_TO_LEFT" prefHeight="44.0" prefWidth="504.0">
                <children>
-                  <Button fx:id="btnClose" mnemonicParsing="false" styleClass="transparent" stylesheets="@../../../values/style.css">
+                  <Button fx:id="btnClose" mnemonicParsing="false" styleClass="transparent" stylesheets="@../values/style.css">
                      <graphic>
                         <ImageView fitHeight="40.0" fitWidth="21.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../resources/img/close.png" />
+                              <Image url="@../img/close.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -49,18 +49,18 @@
                   <Font name="Arial" size="13.0" />
                </font>
             </Label>
-            <HBox prefHeight="36.0" prefWidth="404.0" styleClass="border" stylesheets="@../../../values/style.css">
+            <HBox prefHeight="36.0" prefWidth="404.0" styleClass="border" stylesheets="@../values/style.css">
                <children>
-                  <Pane prefHeight="47.0" prefWidth="43.0" styleClass="right-side-border" stylesheets="@../../../values/style.css">
+                  <Pane prefHeight="47.0" prefWidth="43.0" styleClass="right-side-border" stylesheets="@../values/style.css">
                      <children>
                         <ImageView fitHeight="36.0" fitWidth="25.0" layoutX="9.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../resources/img/user-login-icon-14.png" />
+                              <Image url="@../img/user-login-icon-14.png" />
                            </image>
                         </ImageView>
                      </children>
                   </Pane>
-                  <TextField fx:id="tfPseudo" prefHeight="33.0" prefWidth="296.0" promptText="Pseudo" styleClass="transparent" stylesheets="@../../../values/style.css">
+                  <TextField fx:id="tfPseudo" prefHeight="33.0" prefWidth="296.0" promptText="Pseudo" styleClass="transparent" stylesheets="@../values/style.css" text="Admin">
                      <HBox.margin>
                         <Insets left="20.0" />
                      </HBox.margin>
@@ -73,24 +73,24 @@
                   <Insets left="50.0" right="50.0" top="50.0" />
                </VBox.margin>
             </HBox>
-            <HBox prefHeight="36.0" prefWidth="404.0" styleClass="border" stylesheets="@../../../values/style.css">
+            <HBox prefHeight="36.0" prefWidth="404.0" styleClass="border" stylesheets="@../values/style.css">
                <children>
-                  <Pane prefHeight="47.0" prefWidth="43.0" styleClass="right-side-border" stylesheets="@../../../values/style.css">
+                  <Pane prefHeight="47.0" prefWidth="43.0" styleClass="right-side-border" stylesheets="@../values/style.css">
                      <children>
                         <ImageView fitHeight="36.0" fitWidth="25.0" layoutX="9.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../../resources/img/20-202249_lock-protect-safety-secure-safe-security-password-svg.png" />
+                              <Image url="@../img/20-202249_lock-protect-safety-secure-safe-security-password-svg.png" />
                            </image>
                         </ImageView>
                      </children>
                   </Pane>
-                  <PasswordField fx:id="pfPass" prefHeight="62.0" prefWidth="361.0" promptText="******" />
+                  <PasswordField fx:id="pfPass" prefHeight="62.0" prefWidth="361.0" promptText="******" text="123" />
                </children>
                <VBox.margin>
                   <Insets left="50.0" right="50.0" top="50.0" />
                </VBox.margin>
             </HBox>
-            <Button fx:id="btnLogin" mnemonicParsing="false" prefHeight="37.0" prefWidth="400.0" styleClass="btn-login" stylesheets="@../../../values/style.css" text="Login" textFill="WHITE">
+            <Button fx:id="btnLogin" mnemonicParsing="false" prefHeight="37.0" prefWidth="400.0" styleClass="btn-login" stylesheets="@../values/style.css" text="Login" textFill="WHITE">
                <VBox.margin>
                   <Insets left="50.0" right="50.0" top="50.0" />
                </VBox.margin>
