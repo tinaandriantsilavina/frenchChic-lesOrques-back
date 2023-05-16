@@ -5,10 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.net.URL;
 
 public class View1 extends Application {
     Pane pane;
@@ -18,10 +16,10 @@ public class View1 extends Application {
         stage.show();
     }
     public View1() throws IOException {
-        pane = FXMLLoader.load(getClass().getResource("/view/view1.fxml"));
+        pane = FXMLLoader.load(getClass().getResource("/view/panier.fxml"));
     }
     public Scene getScene() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/view1.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/panier.fxml"));
         return new Scene(fxmlLoader.load());
     }
 
