@@ -4,15 +4,15 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.frenchchic.controller.ListController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="401.0" prefWidth="656.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.frenchchic.controller.ListController">
    <children>
-      <TableView fx:id="panierTable" layoutX="13.0" layoutY="62.0" prefHeight="260.0" prefWidth="574.0">
+      <TableView fx:id="panierTable" layoutX="19.0" layoutY="63.0" prefHeight="260.0" prefWidth="619.0">
         <columns>
-          <TableColumn fx:id="libelle" prefWidth="75.0" text="Libellé" />
-          <TableColumn fx:id="prix" prefWidth="75.0" text="Prix" />
-            <TableColumn fx:id="quantite" prefWidth="75.0" text="Quantité" />
-            <TableColumn fx:id="montant" prefWidth="75.0" text="Montant" />
-            <TableColumn fx:id="stock" prefWidth="91.0" text="Stock" />
+          <TableColumn fx:id="libelle" prefWidth="291.0" text="Libellé" />
+          <TableColumn fx:id="prix" prefWidth="79.0" text="Prix" />
+            <TableColumn fx:id="quantite" prefWidth="60.0" text="Quantité" />
+            <TableColumn fx:id="montant" prefWidth="120.0" text="Montant" />
+            <TableColumn fx:id="stock" prefWidth="68.0" text="Stock" />
         </columns>
       </TableView>
    </children>

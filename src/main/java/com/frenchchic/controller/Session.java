@@ -1,6 +1,7 @@
 package com.frenchchic.controller;
 
-import com.frenchchic.view.Home;
+import com.frenchchic.model.Client;
+import com.frenchchic.view.VueJetable;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,13 +12,12 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Login implements Initializable {
+public class Session implements Initializable {
     private double xOffset = 0;
     private double yOffset = 0;
     @FXML
@@ -55,11 +55,12 @@ public class Login implements Initializable {
     }
     private boolean isValid(){
         boolean isValid = true;
-        if(!tfPseudo.getText().equals(com.frenchchic.view.Login.PSEUDO)){
+        new Client().rechercheClientParPseudo(tfPseudo.getText(),pfPass.getText());
+        if(!tfPseudo.getText().equals("Admin")){
             isValid = false;
             errorMesssage = "Pseudo invalide";
         }
-        if(!pfPass.getText().equals(com.frenchchic.view.Login.PASS)){
+        if(!pfPass.getText().equals("123")){
             isValid = false;
            if(errorMesssage.isEmpty()){
                 errorMesssage = "Mot de passe  invalide";
@@ -72,11 +73,11 @@ public class Login implements Initializable {
     }
 
     public  void startHomeWindow() throws IOException {
-        Home log = new Home();
+        VueJetable log = new VueJetable();
         Stage stage = new Stage();
-        stage.setMaximized(true);
+//        stage.setMaximized(true);
 //        stage.initStyle(StageStyle.UNDECORATED);
-        log.start(stage);
+        log.startVueJetable(stage);
     }
 
     @Override
@@ -93,6 +94,7 @@ public class Login implements Initializable {
                 errorMesssage="";
                 if(isFieldFilled() && isValid()){
                     try {
+//                        System.exit(0);
                         startHomeWindow();
                     } catch (IOException e) {
                         throw new RuntimeException(e);

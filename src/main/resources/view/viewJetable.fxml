@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="444.0" prefWidth="857.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.frenchchic.controller.HomeController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="990.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.frenchchic.view.VueJetable">
    <children>
-      <VBox alignment="CENTER" prefHeight="382.0" prefWidth="280.0" styleClass="btn-login" stylesheets="@../values/style.css">
+      <VBox alignment="CENTER" prefHeight="620.0" prefWidth="358.0" styleClass="btn-login" stylesheets="@../values/style.css">
          <children>
             <ImageView fitHeight="106.0" fitWidth="223.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -36,7 +36,7 @@
                         <Image url="@../img/menu.png" />
                      </image>
                   </ImageView>
-                  <Button layoutX="73.0" layoutY="4.0" mnemonicParsing="false" onAction="#lanceWin2" prefHeight="23.0" prefWidth="129.0" stylesheets="@../values/style.css" text="Produit du jour">
+                  <Button layoutX="73.0" layoutY="4.0" mnemonicParsing="false" onAction="#afficherEcranAccueilPerso" prefHeight="23.0" prefWidth="129.0" stylesheets="@../values/style.css" text="Produit du jour">
                      <font>
                         <Font name="Arial" size="10.0" />
                      </font>
@@ -54,7 +54,7 @@
                         <Image url="@../img/menu.png" />
                      </image>
                   </ImageView>
-                  <Button layoutX="73.0" layoutY="3.0" mnemonicParsing="false" onAction="#lanceWin1" prefHeight="23.0" prefWidth="129.0" stylesheets="@../values/style.css" text="Panier">
+                  <Button layoutX="73.0" layoutY="3.0" mnemonicParsing="false" onAction="#afficherEcranPanier" prefHeight="23.0" prefWidth="129.0" stylesheets="@../values/style.css" text="Panier">
                      <font>
                         <Font name="Arial" size="10.0" />
                      </font>
@@ -65,9 +65,27 @@
                   </Button>
                </children>
             </Pane>
+            <Pane prefHeight="32.0" prefWidth="240.0" styleClass="right-side-border" stylesheets="@../values/style.css">
+               <children>
+                  <ImageView fitHeight="23.0" fitWidth="20.0" layoutX="9.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/menu.png" />
+                     </image>
+                  </ImageView>
+<!--                  <Button layoutX="73.0" layoutY="3.0" mnemonicParsing="false" onAction="#afficherEcranAccueil" prefHeight="23.0" prefWidth="129.0" stylesheets="@../values/style.css" text="Login">-->
+<!--                     <font>-->
+<!--                        <Font name="Arial" size="10.0" />-->
+<!--                     </font>-->
+<!--                     <styleClass>-->
+<!--                        <String fx:value="btn-login" />-->
+<!--                        <String fx:value="btn-menu" />-->
+<!--                     </styleClass>-->
+<!--                  </Button>-->
+               </children>
+            </Pane>
          </children>
       </VBox>
-      <VBox prefHeight="382.0" prefWidth="576.0">
+      <VBox prefHeight="620.0" prefWidth="676.0">
          <children>
             <AnchorPane fx:id="rootPane" prefHeight="445.0" prefWidth="576.0" />
          </children>
