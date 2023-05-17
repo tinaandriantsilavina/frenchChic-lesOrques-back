@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class Panier implements Initializable {
+public class TraitementListPanier implements Initializable {
 
     @FXML
     private TableView<com.frenchchic.metier.Panier> panierTable;
@@ -57,7 +57,6 @@ public class Panier implements Initializable {
             listPanier.add(panier);
         }
         panierTable.setItems(listPanier);
-//        listPanier.setAll(list);
     }
 
     public void setListe() {
@@ -73,10 +72,6 @@ public class Panier implements Initializable {
         montant.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMontant().toString()));
         stock.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStock().toString()));
 
-//        doubleWrap = new ReadOnlyDoubleWrapper();
-//        doubleWrap.bind(new SimpleDoubleProperty(10.2));
-//
-//        prix.setCellValueFactory(cellData -> doubleWrap);
         panierTable.setItems(nouvelleListe);
     }
 }

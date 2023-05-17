@@ -1,6 +1,5 @@
 package com.frenchchic.view;
 
-import com.frenchchic.controller.Session;
 import com.frenchchic.model.Client;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -8,9 +7,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -19,12 +19,14 @@ import java.util.ResourceBundle;
 
 public class VueJetable extends Application implements Initializable {
     @FXML
-    private AnchorPane rootPane;
+    private AnchorPane childPane;
     @FXML
     private Stage primaryStage;
 
     private Client client;
 
+    @FXML
+    private Button btnAffichage;
 
     public void setClient(Client client) {
         this.client = client;
@@ -48,17 +50,24 @@ public class VueJetable extends Application implements Initializable {
 
     @FXML
     void afficherEcranPanier(ActionEvent event) throws Exception {
-        rootPane.getChildren().setAll( (AnchorPane) FXMLLoader.load(getClass().getResource("/view/panier.fxml")));
+        childPane.getChildren().setAll( (AnchorPane) FXMLLoader.load(getClass().getResource("/view/panier.fxml")));
     }
 
     @FXML
     void afficherEcranAccueilPerso(ActionEvent event) throws Exception {
-        rootPane.getChildren().setAll( (AnchorPane) FXMLLoader.load(getClass().getResource("/view/perso.fxml")));
+        childPane.getChildren().setAll( (AnchorPane) FXMLLoader.load(getClass().getResource("/view/perso.fxml")));
     }
 
-//    @FXML
+    @FXML
     void afficherEcranAccueil(ActionEvent event) throws Exception {
-        rootPane.getChildren().setAll( (AnchorPane) FXMLLoader.load(getClass().getResource("/view/login.fxml")));
+        childPane.getChildren().setAll( (AnchorPane) FXMLLoader.load(getClass().getResource("/view/login.fxml")));
+    }
+
+
+    @FXML
+    void afficher(ActionEvent event) throws Exception {
+        Stage stage = (Stage) btnAffichage.getScene().getWindow();
+        stage.close(); // Fermer la fenêtre actuelle
     }
 
 
@@ -66,8 +75,8 @@ public class VueJetable extends Application implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/perso.fxml"));
-        Node vueFille = loader.load();
-        rootPane.getChildren().add(vueFille);
+        Pane vueFille = loader.load();
+        childPane.getChildren().add(vueFille);
         } catch (Exception e) {
             e.printStackTrace();
         }

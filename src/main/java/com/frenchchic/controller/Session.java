@@ -94,6 +94,8 @@ public class Session implements Initializable {
                 errorMesssage="";
                 if(isFieldFilled() && isValid()){
                     try {
+                        Stage stage = (Stage) btnLogin.getScene().getWindow();
+                        stage.close();
                         startHomeWindow();
                     } catch (IOException e) {
                         throw new RuntimeException(e);
