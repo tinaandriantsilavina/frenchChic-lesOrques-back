@@ -12,11 +12,8 @@ public class Client {
     String pseudo;
     String adresseLivraison;
     String motDePasse;
-    List<Client> lesClients = Arrays.asList(
-            new Client("c001", "Dupont", "Marie", "15 rue des Romarins", "Dupont", "15 rue des Romarins", "123"),
-            new Client("c001", "Martin", "Thomas", "24 rue de la libération", "Martin", "24 rue de la libération", "123"),
-            new Client("c001", "Hubert", "Robert", "5 rue de la paix", "Dupont", "5 rue de la paix", "123")
-    );
+    List<Client> lesClients;
+
 
 
     public Client rechercheClientParPseudo(String pseudo, String motDePasse) {
@@ -27,6 +24,11 @@ public class Client {
     }
 
     public Client() {
+        lesClients = Arrays.asList(
+            new Client("c001", "Dupont", "Marie", "15 rue des Romarins", "Dupont", "15 rue des Romarins", "123"),
+            new Client("c001", "Martin", "Thomas", "24 rue de la libération", "Martin", "24 rue de la libération", "123"),
+            new Client("c001", "Hubert", "Robert", "5 rue de la paix", "Dupont", "5 rue de la paix", "123")
+    );
     }
 
     public Client(String numero, String nom, String prenom, String adresseFacturation, String pseudo, String adresseLivraison, String motDePasse) {

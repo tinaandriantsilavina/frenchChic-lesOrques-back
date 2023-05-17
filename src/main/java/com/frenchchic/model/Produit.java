@@ -11,11 +11,7 @@ public class Produit {
     float prix;
     boolean estDuJour;
     int quantiteEnStock;
-    List<Produit> lesProduits = Arrays.asList(
-            new Produit("ref001", "pantalon zouk", Arrays.asList("pantalon", "zouk"), 50, true, 100),
-            new Produit("ref002", "chapeau zouk", Arrays.asList("chapeau", "zouk"), 10, false, 100),
-            new Produit("ref003", "pull", Arrays.asList("pull", "chaud"), 60, false, 100)
-    );
+    List<Produit> lesProduits;
 
     public List<Produit> rechercheProduitParMotCle(String motCle) {
         List<Produit> results = getLesProduits().stream()
@@ -42,6 +38,11 @@ public class Produit {
     }
 
     public Produit() {
+        lesProduits = Arrays.asList(
+                new Produit("ref001", "pantalon zouk", Arrays.asList("pantalon", "zouk"), 50, true, 100),
+                new Produit("ref002", "chapeau zouk", Arrays.asList("chapeau", "zouk"), 10, false, 100),
+                new Produit("ref003", "pull", Arrays.asList("pull", "chaud"), 60, false, 100)
+        );
     }
 
     public Produit(String reference, String libelle, List<String> motCles, float prix, boolean estDuJour, int quantiteEnStock) {

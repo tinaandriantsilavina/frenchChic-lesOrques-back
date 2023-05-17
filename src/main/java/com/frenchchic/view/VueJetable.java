@@ -1,10 +1,13 @@
 package com.frenchchic.view;
 
+import com.frenchchic.controller.Session;
+import com.frenchchic.model.Client;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -20,6 +23,12 @@ public class VueJetable extends Application implements Initializable {
     @FXML
     private Stage primaryStage;
 
+    private Client client;
+
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/login.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
@@ -28,13 +37,9 @@ public class VueJetable extends Application implements Initializable {
         stage.show();
     }
 
-    public void startVueJetable(Stage stage) throws IOException {
+    public void startVueJetable(Stage stage) throws IOException, Exception {
         stage.close();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/viewJetable.fxml"));
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/login.fxml"));
-//        Parent root = loader.load();
-//        Stage currentStage = (Stage) root.getScene().getWindow();
-//        currentStage.close();
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("French chic");
         stage.setScene(scene);
@@ -59,7 +64,13 @@ public class VueJetable extends Application implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        try{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/perso.fxml"));
+        Node vueFille = loader.load();
+        rootPane.getChildren().add(vueFille);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public Stage getPrimaryStage() {

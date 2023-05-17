@@ -46,6 +46,9 @@
                      </styleClass>
                   </Button>
                </children>
+               <VBox.margin>
+                  <Insets top="70.0" />
+               </VBox.margin>
             </Pane>
             <Pane prefHeight="32.0" prefWidth="240.0" styleClass="right-side-border" stylesheets="@../values/style.css">
                <children>
@@ -65,13 +68,13 @@
                   </Button>
                </children>
             </Pane>
-            <Pane prefHeight="32.0" prefWidth="240.0" styleClass="right-side-border" stylesheets="@../values/style.css">
-               <children>
-                  <ImageView fitHeight="23.0" fitWidth="20.0" layoutX="9.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../img/menu.png" />
-                     </image>
-                  </ImageView>
+<!--            <Pane prefHeight="32.0" prefWidth="240.0" styleClass="right-side-border" stylesheets="@../values/style.css">-->
+<!--               <children>-->
+<!--                  <ImageView fitHeight="23.0" fitWidth="20.0" layoutX="9.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">-->
+<!--                     <image>-->
+<!--                        <Image url="@../img/menu.png" />-->
+<!--                     </image>-->
+<!--                  </ImageView>-->
 <!--                  <Button layoutX="73.0" layoutY="3.0" mnemonicParsing="false" onAction="#afficherEcranAccueil" prefHeight="23.0" prefWidth="129.0" stylesheets="@../values/style.css" text="Login">-->
 <!--                     <font>-->
 <!--                        <Font name="Arial" size="10.0" />-->
@@ -81,8 +84,8 @@
 <!--                        <String fx:value="btn-menu" />-->
 <!--                     </styleClass>-->
 <!--                  </Button>-->
-               </children>
-            </Pane>
+<!--               </children>-->
+<!--            </Pane>-->
          </children>
       </VBox>
       <VBox prefHeight="620.0" prefWidth="676.0">
