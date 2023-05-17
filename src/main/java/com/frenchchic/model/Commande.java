@@ -12,8 +12,16 @@ public class Commande {
         if (getLesCommandes().isEmpty())
             throw new Exception("Commande vide");
         setStatutCode(statutCode.CONFIRMER);
+        lesCommandes.forEach(cmd -> {
+            try {
+                cmd.getProduit().retirerDuStock(cmd.getQuantite());
+            } catch (Exception ex) {
+                Logger.getLogger(Commande.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
         return this;
     }
+    
     public void ajouterProduit(Produit produit, int quantite) {
         getLesCommandes().add(new LigneCommande(produit, quantite));
         setMontant(montant + (produit.getPrix() * quantite));
