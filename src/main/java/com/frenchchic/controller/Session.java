@@ -2,6 +2,8 @@ package com.frenchchic.controller;
 
 import com.frenchchic.model.Client;
 import com.frenchchic.view.VueJetable;
+
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,6 +22,7 @@ import java.util.ResourceBundle;
 public class Session implements Initializable {
     private double xOffset = 0;
     private double yOffset = 0;
+    public VueJetable vueJetable;
     @FXML
     private Button btnClose;
 
@@ -34,74 +37,19 @@ public class Session implements Initializable {
 
     @FXML
     private Label errorMessageLabel;
-
-    private String errorMesssage="";
-    private boolean isFieldFilled(){
-        boolean isFilled = true;
-        if(tfPseudo.getText().isEmpty()){
-            isFilled = false;
-            errorMesssage="Veuillez entrer votre pseudo";
-        }
-        if(pfPass.getText().isEmpty()){
-            isFilled = false;
-            if(errorMesssage.isEmpty()){
-                errorMesssage = "Veullez entrer votre mot de passe";
-            }else{
-                errorMesssage =errorMesssage+ " \nVeullez entrer votre mot de passe";
-            }
-        }
-        errorMessageLabel.setText(errorMesssage);
-        return isFilled;
+ 
+    private boolean isFieldFilled() throws Exception{ 
+        if(tfPseudo.getText().isEmpty()) 
+            throw new Exception("Veuillez entrer votre pseudo"); 
+        if(pfPass.getText().isEmpty())
+            throw new Exception("Veullez entrer votre mot de passe"); 
+        return true;
     }
-    private boolean isValid(){
-        boolean isValid = true;
-        new Client().rechercheClientParPseudo(tfPseudo.getText(),pfPass.getText());
-        if(!tfPseudo.getText().equals("Admin")){
-            isValid = false;
-            errorMesssage = "Pseudo invalide";
-        }
-        if(!pfPass.getText().equals("123")){
-            isValid = false;
-           if(errorMesssage.isEmpty()){
-                errorMesssage = "Mot de passe  invalide";
-           }else{
-               errorMesssage = errorMesssage+" \nMot de passe  invalide";
-           }
-        }
-        errorMessageLabel.setText(errorMesssage);
-        return isValid;
-    }
+     
 
-    public  void startHomeWindow() throws IOException {
-        VueJetable log = new VueJetable();
-        Stage stage = new Stage();
-//        stage.setMaximized(true);
-//        stage.initStyle(StageStyle.UNDECORATED);
-        log.startVueJetable(stage);
-    }
-
-    @Override
+    @FXML 
     public void initialize(URL location, ResourceBundle ressources){
-        btnClose.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                System.exit(0);
-            }
-        });
-        btnLogin.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                errorMesssage="";
-                if(isFieldFilled() && isValid()){
-                    try {
-//                        System.exit(0);
-                        startHomeWindow();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }
-        });
+        errorMessageLabel.setText(""); 
     }
 
 
@@ -117,4 +65,21 @@ public class Session implements Initializable {
         stage.setX(event.getScreenX() - xOffset);
         stage.setY(event.getScreenY() - yOffset);
     }
+    @FXML
+    private void login(ActionEvent event){
+        errorMessageLabel.setText("");
+        try {
+            isFieldFilled();
+            Client client=Client.login(tfPseudo.getText(),pfPass.getText()) ;
+            vueJetable.client=client;
+            vueJetable.home();
+        } catch (Exception e) {
+            errorMessageLabel.setText(e.getMessage()); 
+        }
+ 
+    }
+
+
+
+
 }

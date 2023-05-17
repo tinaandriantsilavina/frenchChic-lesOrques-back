@@ -11,11 +11,9 @@ public class Produit {
     float prix;
     boolean estDuJour;
     int quantiteEnStock;
-    List<Produit> lesProduits = Arrays.asList(
-            new Produit("ref001", "pantalon zouk", Arrays.asList("pantalon", "zouk"), 50, true, 100),
-            new Produit("ref002", "chapeau zouk", Arrays.asList("chapeau", "zouk"), 10, false, 100),
-            new Produit("ref003", "pull", Arrays.asList("pull", "chaud"), 60, false, 100)
-    );
+    public String imagePath="/produit/image.png";
+
+    static public List<Produit> lesProduits;
 
     public List<Produit> rechercheProduitParMotCle(String motCle) {
         List<Produit> results = getLesProduits().stream()
@@ -70,7 +68,7 @@ public class Produit {
     }
 
     public String getLibelle() {
-        return libelle;
+        return libelle.toUpperCase();
     }
 
     public void setLibelle(String libelle) {
@@ -107,5 +105,14 @@ public class Produit {
 
     public void setLesProduits(List<Produit> lesProduits) {
         this.lesProduits = lesProduits;
+    }
+    static {
+        lesProduits=Arrays.asList(
+            new Produit("#px00001", "pantalon zouk", Arrays.asList("pantalon", "zouk"), 50, true, 100),
+            new Produit("#px00002", "chapeau zouk", Arrays.asList("chapeau", "zouk"), 10, false, 100),
+            new Produit("#px00002", "chapeau zouk", Arrays.asList("chapeau", "zouk"), 10, false, 100),
+            new Produit("#px00002", "chapeau zouk", Arrays.asList("chapeau", "zouk"), 10, false, 100),
+            new Produit("#px00003", "pull", Arrays.asList("pull", "chaud"), 60, false, 100)
+    );
     }
 }
