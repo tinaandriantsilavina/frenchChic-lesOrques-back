@@ -12,17 +12,15 @@ public class Client {
     String pseudo;
     String adresseLivraison;
     String motDePasse;
-    List<Client> lesClients = Arrays.asList(
-            new Client("c001", "Dupont", "Marie", "15 rue des Romarins", "Dupont", "15 rue des Romarins", "123"),
-            new Client("c001", "Martin", "Thomas", "24 rue de la libération", "Martin", "24 rue de la libération", "123"),
-            new Client("c001", "Hubert", "Robert", "5 rue de la paix", "Dupont", "5 rue de la paix", "123")
-    );
+    List<Client> lesClients;
 
 
     public Client rechercheClientParPseudo(String pseudo, String motDePasse) {
         List<Client> result = getLesClients().stream()
                         .filter(c -> c.pseudo.equals(pseudo) && c.motDePasse.equals(motDePasse))
                         .collect(Collectors.toList());
+        if (result.isEmpty())
+            return null;
         return result.get(0);
     }
 
@@ -37,6 +35,14 @@ public class Client {
         this.pseudo = pseudo;
         this.adresseLivraison = adresseLivraison;
         this.motDePasse = motDePasse;
+    }
+    
+    public void initLesClients() {
+        this.lesClients = Arrays.asList(
+            new Client("c001", "Dupont", "Marie", "15 rue des Romarins", "Dupont", "15 rue des Romarins", "123"),
+            new Client("c001", "Martin", "Thomas", "24 rue de la libération", "Martin", "24 rue de la libération", "123"),
+            new Client("c001", "Hubert", "Robert", "5 rue de la paix", "Dupont", "5 rue de la paix", "123")
+        );
     }
 
     public String getNumero() {
@@ -101,5 +107,12 @@ public class Client {
 
     public void setLesClients(List<Client> lesClients) {
         this.lesClients = lesClients;
+    }
+
+    public static void main(String[] args) {
+        Client client = new Client();
+        client.initLesClients();
+        
+        System.out.println(client.rechercheClientParPseudo("Dupont", "123"));
     }
 }
