@@ -109,6 +109,11 @@ public class Client {
         this.lesClients = lesClients;
     }
 
+    @Override
+    public String toString() {
+        return "Client{" + "numero=" + numero + ", nom=" + nom + ", prenom=" + prenom + ", adresseFacturation=" + adresseFacturation + ", pseudo=" + pseudo + ", adresseLivraison=" + adresseLivraison + ", motDePasse=" + motDePasse + ", lesClients=" + lesClients + '}';
+    }
+
     public static void main(String[] args) {
         Client client = new Client();
         client.initLesClients();

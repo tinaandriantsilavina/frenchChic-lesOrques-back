@@ -11,11 +11,7 @@ public class Produit {
     float prix;
     boolean estDuJour;
     int quantiteEnStock;
-    List<Produit> lesProduits = Arrays.asList(
-            new Produit("ref001", "pantalon zouk", Arrays.asList("pantalon", "zouk"), 50, true, 100),
-            new Produit("ref002", "chapeau zouk", Arrays.asList("chapeau", "zouk"), 10, false, 100),
-            new Produit("ref003", "pull", Arrays.asList("pull", "chaud"), 60, false, 100)
-    );
+    List<Produit> lesProduits;
 
     public List<Produit> rechercheProduitParMotCle(String motCle) {
         List<Produit> results = getLesProduits().stream()
@@ -39,6 +35,14 @@ public class Produit {
                 .filter(p -> p.estDuJour)
                 .collect(Collectors.toList());
         return result.get(0);
+    }
+    
+    public void initLesProduit() {
+        lesProduits = Arrays.asList(
+            new Produit("ref001", "pantalon zouk", Arrays.asList("pantalon", "zouk"), 50, true, 100),
+            new Produit("ref002", "chapeau zouk", Arrays.asList("chapeau", "zouk"), 10, false, 100),
+            new Produit("ref003", "pull", Arrays.asList("pull", "chaud"), 60, false, 100)
+        );
     }
 
     public Produit() {
@@ -108,4 +112,21 @@ public class Produit {
     public void setLesProduits(List<Produit> lesProduits) {
         this.lesProduits = lesProduits;
     }
+
+    @Override
+    public String toString() {
+        return "Produit{" + "reference=" + reference + ", libelle=" + libelle + ", motCles=" + motCles + ", prix=" + prix + ", estDuJour=" + estDuJour + ", quantiteEnStock=" + quantiteEnStock + ", lesProduits=" + lesProduits + '}';
+    }
+    
+    
+    public static void main(String[] args) throws Exception {
+        Produit produit = new Produit();
+        produit.initLesProduit();
+        System.out.println(produit.getLesProduits());
+        Produit pDuJour = produit.rechercheProduitDuJour();
+        System.out.println(pDuJour);
+        pDuJour.retirerDuStock(1);
+        System.out.println(produit.getLesProduits());
+    }
 }
+
