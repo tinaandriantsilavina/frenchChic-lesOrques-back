@@ -21,7 +21,7 @@ public class Commande {
     @FXML
     private Label prix;
     @FXML
-    private Button btnAjouter;
+    private Button btnAjout;
 
 
 
@@ -39,7 +39,7 @@ public class Commande {
         quantite.getEditor().setTextFormatter(textFormatter);
         quantite.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, Integer.MAX_VALUE));
 
-        initButton(btnAjouter);
+        initButton(btnAjout);
     }
     public void afficherPanier(){
 

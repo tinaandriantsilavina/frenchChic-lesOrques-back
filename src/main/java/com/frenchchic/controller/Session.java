@@ -58,7 +58,13 @@ public class Session implements Initializable {
         boolean isValid = true;
         try{
             Client cl= new Client().rechercheClientParPseudo(tfPseudo.getText(),pfPass.getText());
-            setClient(cl);
+            if(cl!=null){
+                setClient(cl);
+            }else{
+                errorMesssage = "Votre pseudo ou votre mot de passe est incorrect";
+                isValid = false;
+            }
+
         }catch (Exception ex){
             errorMesssage = "Votre pseudo ou votre mot de passe est incorrect";
             isValid = false;

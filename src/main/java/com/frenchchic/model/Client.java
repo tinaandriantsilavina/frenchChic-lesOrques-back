@@ -23,6 +23,7 @@ public class Client {
     }
 
     public Client() {
+        initLesClients();
     }
 
     public Client(String numero, String nom, String prenom, String adresseFacturation, String pseudo, String adresseLivraison, String motDePasse) {
