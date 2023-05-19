@@ -4,14 +4,17 @@ import com.frenchchic.model.Produit;
 import com.frenchchic.view.VueJetable;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.util.converter.IntegerStringConverter;
 
+import java.net.URL;
+import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 
-public class TraitementAccueilPerso {
+public class TraitementAccueilPerso implements Initializable {
     VueJetable parentPane;
     @FXML
     private Spinner<Integer> quantite;
@@ -24,8 +27,10 @@ public class TraitementAccueilPerso {
     @FXML
     private Button btnAjout;
 
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
 
-
+    }
     public void initialize() {
         initDynamicLabel();
         initChampNumber();
@@ -66,4 +71,6 @@ public class TraitementAccueilPerso {
     public VueJetable getParentPane() { return parentPane; }
 
     public void setParentPane(VueJetable parentPane) { this.parentPane = parentPane; }
+
+
 }

@@ -1,5 +1,6 @@
 package com.frenchchic.view;
 
+import com.frenchchic.controller.TraitementAccueilPerso;
 import com.frenchchic.model.Client;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -74,9 +75,10 @@ public class VueJetable extends Application implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/perso.fxml"));
-        Pane vueFille = loader.load();
-        childPane.getChildren().add(vueFille);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/perso.fxml"));
+            TraitementAccueilPerso controller;
+            Pane vueFille = loader.load();
+            childPane.getChildren().add(vueFille);
         } catch (Exception e) {
             e.printStackTrace();
         }
