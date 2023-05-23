@@ -75,9 +75,8 @@ public class Session implements Initializable {
 
     public  void startHomeWindow() throws IOException,Exception {
         VueJetable log = new VueJetable();
-        Stage stage = new Stage();
         log.setClient(client);
-        log.startVueJetable(stage);
+        log.startVueJetable();
     }
 
     @Override

@@ -72,5 +72,38 @@ public class TraitementAccueilPerso implements Initializable {
 
     public void setParentPane(VueJetable parentPane) { this.parentPane = parentPane; }
 
+    public Spinner<Integer> getQuantite() {
+        return quantite;
+    }
 
+    public void setQuantite(Spinner<Integer> quantite) {
+        this.quantite = quantite;
+    }
+
+    public Label getNomClient() {
+        return nomClient;
+    }
+
+    public TraitementAccueilPerso setNomClient(String nomClient) {
+        this.nomClient.setText( nomClient);
+        return this;
+    }
+
+    public Label getNomProduit() {
+        return nomProduit;
+    }
+
+    public TraitementAccueilPerso setNomProduit(String nomProduit) {
+        this.nomProduit.setText( nomProduit );
+        return this;
+    }
+
+    public Label getPrix() {
+        return prix;
+    }
+
+    public TraitementAccueilPerso setPrix(String prix) {
+        this.prix.setText( prix );
+        return this;
+    }
 }

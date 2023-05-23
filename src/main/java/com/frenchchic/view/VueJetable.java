@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
@@ -40,7 +41,8 @@ public class VueJetable extends Application implements Initializable {
         stage.show();
     }
 
-    public void startVueJetable(Stage stage) throws IOException, Exception {
+    public void startVueJetable() throws IOException, Exception {
+        Stage stage = new Stage();
         stage.close();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/viewJetable.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
@@ -56,7 +58,12 @@ public class VueJetable extends Application implements Initializable {
 
     @FXML
     void afficherEcranAccueilPerso(ActionEvent event) throws Exception {
-        childPane.getChildren().setAll( (AnchorPane) FXMLLoader.load(getClass().getResource("/view/perso.fxml")));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/perso.fxml"));
+        Parent root = fxmlLoader.load();
+        TraitementAccueilPerso controller =  fxmlLoader.getController();
+        AnchorPane anchorPane = new AnchorPane();
+        anchorPane.getChildren().add(root);
+        childPane.getChildren().setAll( anchorPane );
     }
 
     @FXML
