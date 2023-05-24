@@ -27,27 +27,34 @@ public class TraitementAccueilPerso implements Initializable {
     @FXML
     private Button btnAjout;
 
+    @FXML
+    private Label stock;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        initialize();
     }
     public void initialize() {
         initDynamicLabel();
         initChampNumber();
-        initButton(btnAjout);
+        initBtnAjout();
     }
     public void afficherPanier(){
 
     }
 
-    public void initButton(Button button){
-        button.setOnMouseClicked(new EventHandler<MouseEvent>() {
+    public void initBtnAjout(){
+        btnAjout.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                System.out.println("hehehe");
+                System.out.println(getQuantite());
+                System.out.println(getStock());
             }
         });
     }
+
+
+
 
     public void initChampNumber(){
         String numberRegex = "\\d+";
@@ -72,8 +79,8 @@ public class TraitementAccueilPerso implements Initializable {
 
     public void setParentPane(VueJetable parentPane) { this.parentPane = parentPane; }
 
-    public Spinner<Integer> getQuantite() {
-        return quantite;
+    public Integer getQuantite() {
+        return quantite.getValue();
     }
 
     public void setQuantite(Spinner<Integer> quantite) {
@@ -104,6 +111,15 @@ public class TraitementAccueilPerso implements Initializable {
 
     public TraitementAccueilPerso setPrix(String prix) {
         this.prix.setText( prix );
+        return this;
+    }
+
+    public String getStock() {
+        return this.stock.getText();
+    }
+
+    public TraitementAccueilPerso setStock(String stock) {
+        this.stock.setText(stock);
         return this;
     }
 }

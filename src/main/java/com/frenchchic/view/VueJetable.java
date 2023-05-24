@@ -2,6 +2,7 @@ package com.frenchchic.view;
 
 import com.frenchchic.controller.TraitementAccueilPerso;
 import com.frenchchic.model.Client;
+import com.frenchchic.model.Produit;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,8 +21,11 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class VueJetable extends Application implements Initializable {
+    public final static String vueJetable= "/view/viewJetable.fxml";
+    public final static String PANIER= "/view/panier.fxml";
+    public final static String PERSO= "/view/perso.fxml";
     @FXML
-    private AnchorPane childPane;
+    private Pane childPane;
     @FXML
     private Stage primaryStage;
 
@@ -46,11 +50,33 @@ public class VueJetable extends Application implements Initializable {
         stage.close();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/viewJetable.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
+        VueJetable temp = fxmlLoader.getController();
         stage.setTitle("French chic");
         stage.setScene(scene);
         stage.show();
     }
+    public void loadChildPane(String fxmlPath) {
+        try {
+            childPane.getChildren().clear();
+            childPane.getChildren().add(FXMLLoader.load(getClass().getResource(fxmlPath)));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void loadChildPane(FXMLLoader fxml) {
+        try {
+            childPane.getChildren().clear();
+            childPane.getChildren().add(fxml.getRoot());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadChildPane(Parent parent) {
+        childPane.getChildren().clear();
+        childPane.getChildren().add(parent);
+    }
     @FXML
     void afficherEcranPanier(ActionEvent event) throws Exception {
         childPane.getChildren().setAll( (AnchorPane) FXMLLoader.load(getClass().getResource("/view/panier.fxml")));
@@ -60,7 +86,10 @@ public class VueJetable extends Application implements Initializable {
     void afficherEcranAccueilPerso(ActionEvent event) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/perso.fxml"));
         Parent root = fxmlLoader.load();
+        Produit produit = new Produit().rechercheProduitDuJour();
         TraitementAccueilPerso controller =  fxmlLoader.getController();
+        controller.setNomClient("klklklkl");
+        controller.setPrix(String.valueOf(produit.getPrix()));
         AnchorPane anchorPane = new AnchorPane();
         anchorPane.getChildren().add(root);
         childPane.getChildren().setAll( anchorPane );
@@ -81,14 +110,14 @@ public class VueJetable extends Application implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/perso.fxml"));
-            TraitementAccueilPerso controller;
-            Pane vueFille = loader.load();
-            childPane.getChildren().add(vueFille);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try{
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/perso.fxml"));
+//            TraitementAccueilPerso controller;
+//            Pane vueFille = loader.load();
+//            childPane.getChildren().add(vueFille);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     public Stage getPrimaryStage() {
