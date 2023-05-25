@@ -3,11 +3,10 @@ package com.frenchchic.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Commande {
+public class  Commande {
     float montant = 0;
     StatutCode statutCode = StatutCode.NON_CONFIRMER;
     List<LigneCommande> lesCommandes = new ArrayList<>();
-
     public Commande creerPanier() throws Exception {
         if (getLesCommandes().isEmpty())
             throw new Exception("Commande vide");
@@ -16,7 +15,7 @@ public class Commande {
             try {
                 cmd.getProduit().retirerDuStock(cmd.getQuantite());
             } catch (Exception ex) {
-                Logger.getLogger(Commande.class.getName()).log(Level.SEVERE, null, ex);
+//                Logger.getLogger(Commande.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
         return this;

@@ -1,5 +1,8 @@
 package com.frenchchic.controller;
 
+import com.frenchchic.model.Commande;
+import com.frenchchic.model.LigneCommande;
+import com.frenchchic.view.VueJetable;
 import javafx.beans.property.ReadOnlyDoubleWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -15,29 +18,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class TraitementListPanier implements Initializable {
-
+public class TraitementListPanier extends ViewController implements Initializable {
+    Commande commande ;
     @FXML
-    private TableView<com.frenchchic.metier.Panier> panierTable;
+    private TableView<LigneCommande> panierTable;
     @FXML
-    private TableColumn<com.frenchchic.metier.Panier,String> libelle;
+    private TableColumn<LigneCommande,String> libelle;
     @FXML
-    private TableColumn<com.frenchchic.metier.Panier,String> prix;
+    private TableColumn<LigneCommande,String> prix;
     @FXML
-    private TableColumn<com.frenchchic.metier.Panier,String> quantite;
+    private TableColumn<LigneCommande,String> quantite;
     @FXML
-    private TableColumn<com.frenchchic.metier.Panier,String> montant;
+    private TableColumn<LigneCommande,String> montant;
     @FXML
-    private TableColumn<com.frenchchic.metier.Panier,String> stock;
+    private TableColumn<LigneCommande,String> stock;
     private ReadOnlyDoubleWrapper doubleWrap;
 
     ObservableList<com.frenchchic.metier.Panier> listPanier = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        loadData();
-//        refreshList();
-        setListe();
     }
 
     private void loadData() {
@@ -56,22 +56,22 @@ public class TraitementListPanier implements Initializable {
             list.add(panier);
             listPanier.add(panier);
         }
-        panierTable.setItems(listPanier);
+//        panierTable.setItems(listPanier);
     }
 
     public void setListe() {
-        ObservableList<com.frenchchic.metier.Panier> nouvelleListe = FXCollections.observableArrayList();
-        nouvelleListe.add(new com.frenchchic.metier.Panier("Ketrika 01",2.0,20,1.0,50));
-        nouvelleListe.add(new com.frenchchic.metier.Panier("Ketrika 02",2.0,20,1.0,50));
+        ObservableList<LigneCommande> list = FXCollections.observableArrayList();
+        list =FXCollections.observableList( commande.getLesCommandes());
+        panierTable.setItems(list);
 
-        panierTable.setItems(nouvelleListe);
-
-        libelle.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLibelle()));
-        prix.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPrix().toString()));
-        quantite.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getQuantite().toString()));
-        montant.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getMontant().toString()));
-        stock.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getStock().toString()));
-
-        panierTable.setItems(nouvelleListe);
+        libelle.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProduit().getLibelle()));
+        prix.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getProduit().getPrix())));
+        quantite.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getQuantite())));
+        montant.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getQuantite())));
+        stock.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getProduit().getQuantiteEnStock())));
     }
+
+    public Commande getCommande() { return commande; }
+
+    public void setCommande(Commande commande) { this.commande = commande; }
 }

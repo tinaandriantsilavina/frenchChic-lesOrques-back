@@ -22,7 +22,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class TraitementConnexion implements Initializable {
-    private static TraitementConnexion instance;
+
     private double xOffset = 0;
     private double yOffset = 0;
     private Client client;
@@ -44,12 +44,7 @@ public class TraitementConnexion implements Initializable {
     private String errorMesssage="";
 
 
-    public static TraitementConnexion getInstance() {
-        if (instance == null) {
-            instance = new TraitementConnexion();
-        }
-        return instance;
-    }
+
 
 
     private boolean isFieldFilled(){
@@ -96,11 +91,9 @@ public class TraitementConnexion implements Initializable {
         VueJetable vue = fxmlLoader.getController();
         FXMLLoader perso = Utils.getFxml(VueJetable.PERSO);
         TraitementAccueilPerso persoController = perso.getController();
+        persoController.setVueParent(vue);
         vue.setClient(client);
         persoController.setNomClient(client.getPrenom()+" "+client.getNom());
-        persoController.setNomProduit(produit.getLibelle());
-        persoController.setPrix(String.valueOf(produit.getPrix()));
-        persoController.setStock(String.valueOf(produit.getQuantiteEnStock()));
         vue.loadChildPane(perso);
         Stage stage = new Stage();
         Scene scene = new Scene(fxmlLoader.getRoot());

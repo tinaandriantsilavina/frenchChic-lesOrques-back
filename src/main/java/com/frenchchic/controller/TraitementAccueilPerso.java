@@ -1,9 +1,12 @@
 package com.frenchchic.controller;
 
+import com.frenchchic.model.Commande;
 import com.frenchchic.model.Produit;
+import com.frenchchic.utils.Utils;
 import com.frenchchic.view.VueJetable;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
@@ -14,8 +17,8 @@ import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 
-public class TraitementAccueilPerso implements Initializable {
-    VueJetable parentPane;
+public class TraitementAccueilPerso extends ViewController implements Initializable {
+    private Produit produit;
     @FXML
     private Spinner<Integer> quantite;
     @FXML
@@ -35,9 +38,10 @@ public class TraitementAccueilPerso implements Initializable {
         initialize();
     }
     public void initialize() {
+        produit = new Produit().rechercheProduitDuJour();
         initDynamicLabel();
-        initChampNumber();
         initBtnAjout();
+        initChampNumber();
     }
     public void afficherPanier(){
 
@@ -47,8 +51,17 @@ public class TraitementAccueilPerso implements Initializable {
         btnAjout.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                System.out.println(getQuantite());
-                System.out.println(getStock());
+                try{
+                    Commande commande = new Commande();
+                    commande.ajouterProduit(produit, getQuantite());
+                    FXMLLoader panier = Utils.getFxml(VueJetable.PANIER);
+                    TraitementListPanier panierController = panier.getController();
+                    panierController.setCommande(commande);
+                    panierController.setListe();
+                    getVueParent().loadChildPane(panier);
+                }catch(Exception ex){
+                    ex.printStackTrace();
+                }
             }
         });
     }
@@ -67,17 +80,15 @@ public class TraitementAccueilPerso implements Initializable {
         };
         TextFormatter<Integer> textFormatter = new TextFormatter<>(new IntegerStringConverter(), 1, numberFilter);
         quantite.getEditor().setTextFormatter(textFormatter);
-        quantite.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, Integer.MAX_VALUE));
+        quantite.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, produit.getQuantiteEnStock()));
     }
 
     public void initDynamicLabel(){
-        Produit produit = new Produit().rechercheProduitDuJour();
-
+        produit = new Produit().rechercheProduitDuJour();
+        this.setPrix(String.valueOf(produit.getPrix()));
+        this.setStock(String.valueOf(produit.getQuantiteEnStock()));
+        this.setNomProduit(produit.getLibelle());
     }
-
-    public VueJetable getParentPane() { return parentPane; }
-
-    public void setParentPane(VueJetable parentPane) { this.parentPane = parentPane; }
 
     public Integer getQuantite() {
         return quantite.getValue();

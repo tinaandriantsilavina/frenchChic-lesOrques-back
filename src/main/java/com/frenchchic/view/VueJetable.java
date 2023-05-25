@@ -110,14 +110,7 @@ public class VueJetable extends Application implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-//        try{
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/perso.fxml"));
-//            TraitementAccueilPerso controller;
-//            Pane vueFille = loader.load();
-//            childPane.getChildren().add(vueFille);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+
     }
 
     public Stage getPrimaryStage() {
