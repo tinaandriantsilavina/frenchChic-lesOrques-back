@@ -28,6 +28,10 @@ public class LigneCommande {
         this.quantite = quantite;
     }
     
+    public float getPrix () {
+        return quantite * produit.getPrix();
+    }
+    
     @Override
     public String toString() {
         return "LigneCommande{" + "produit=" + produit + ", quantite=" + quantite + '}';
