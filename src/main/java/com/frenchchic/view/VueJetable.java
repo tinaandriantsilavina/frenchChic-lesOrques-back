@@ -1,5 +1,7 @@
 package com.frenchchic.view;
 
+import com.frenchchic.controller.EnumTypeEcran;
+import com.frenchchic.controller.Session;
 import com.frenchchic.controller.TraitementAccueilPerso;
 import com.frenchchic.model.Client;
 import com.frenchchic.model.Produit;
@@ -21,7 +23,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class VueJetable extends Application implements Initializable {
-    public final static String vueJetable= "/view/viewJetable.fxml";
+    public final static String VUEJETABLE= "/view/viewJetable.fxml";
     public final static String PANIER= "/view/panier.fxml";
     public final static String PERSO= "/view/perso.fxml";
     @FXML
@@ -29,20 +31,22 @@ public class VueJetable extends Application implements Initializable {
     @FXML
     private Stage primaryStage;
 
-    private Client client;
+    private Session session;
 
     @FXML
     private Button btnAffichage;
 
-    public void setClient(Client client) {
-        this.client = client;
-    }
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/login.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Home");
-        stage.setScene(scene);
-        stage.show();
+        session = new Session();
+        TraiterConnexionReponse reponse = session.traiterConnexion();
+        if (reponse.typeEcran == EnumTypeEcran.ECRAN_ACCUEIL) {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/login.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            stage.setTitle("Home");
+            stage.setScene(scene);
+            stage.show();
+        }
+
     }
 
     public void startVueJetable() throws IOException, Exception {
@@ -119,5 +123,13 @@ public class VueJetable extends Application implements Initializable {
 
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
+    }
+
+    public Session getSession() {
+        return session;
+    }
+
+    public void setSession(Session session) {
+        this.session = session;
     }
 }

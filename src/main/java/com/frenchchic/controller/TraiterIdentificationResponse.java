@@ -21,11 +21,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class TraitementConnexion implements Initializable {
+public class TraiterIdentificationResponse implements Initializable {
 
     private double xOffset = 0;
     private double yOffset = 0;
     private Client client;
+    private Produit leProduit;
+    private EnumTypeEcran typeEcran;
+
     @FXML
     private Button btnClose;
 
