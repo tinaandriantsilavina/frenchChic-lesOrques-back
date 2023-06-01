@@ -90,7 +90,7 @@ public class TraiterIdentificationResponse implements Initializable {
 
     public  void startHomeWindow() throws IOException,Exception {
         Produit produit = new Produit().rechercheProduitDuJour();
-        FXMLLoader fxmlLoader = Utils.getFxml(VueJetable.vueJetable);
+        FXMLLoader fxmlLoader = Utils.getFxml(VueJetable.VUEJETABLE);
         VueJetable vue = fxmlLoader.getController();
         FXMLLoader perso = Utils.getFxml(VueJetable.PERSO);
         TraitementAccueilPerso persoController = perso.getController();

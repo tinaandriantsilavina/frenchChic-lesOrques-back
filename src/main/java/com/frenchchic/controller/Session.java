@@ -16,6 +16,10 @@ public class Session {
 //        return instance;
 //    }
 
+    public TraiterConnexionResponse traiterConnexion() {
+        return new TraiterConnexionResponse(EnumTypeEcran.ECRAN_ACCUEIL);
+    }
+
     public TraiterIdentificationResponse traiterIdentification(String pseudo, String mdp) {
         Client leClient = new Client().rechercheClientParPseudo(pseudo, mdp);
         Produit leProduit = new Produit().rechercheProduitDuJour();

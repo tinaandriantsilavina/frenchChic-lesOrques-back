@@ -3,6 +3,7 @@ package com.frenchchic.view;
 import com.frenchchic.controller.EnumTypeEcran;
 import com.frenchchic.controller.Session;
 import com.frenchchic.controller.TraitementAccueilPerso;
+import com.frenchchic.controller.TraiterConnexionResponse;
 import com.frenchchic.model.Client;
 import com.frenchchic.model.Produit;
 import javafx.application.Application;
@@ -38,7 +39,7 @@ public class VueJetable extends Application implements Initializable {
 
     public void start(Stage stage) throws IOException {
         session = new Session();
-        TraiterConnexionReponse reponse = session.traiterConnexion();
+        TraiterConnexionResponse reponse = session.traiterConnexion();
         if (reponse.typeEcran == EnumTypeEcran.ECRAN_ACCUEIL) {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/login.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
@@ -46,7 +47,6 @@ public class VueJetable extends Application implements Initializable {
             stage.setScene(scene);
             stage.show();
         }
-
     }
 
     public void startVueJetable() throws IOException, Exception {
