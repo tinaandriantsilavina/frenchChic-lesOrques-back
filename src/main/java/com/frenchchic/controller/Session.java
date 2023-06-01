@@ -2,6 +2,7 @@ package com.frenchchic.controller;
 
 import com.frenchchic.model.Client;
 import com.frenchchic.model.Commande;
+import com.frenchchic.model.Produit;
 
 public class Session {
     private EnumTypeEcran typeEcran;
@@ -13,6 +14,12 @@ public class Session {
         return new TraiterConnexionResponse(EnumTypeEcran.ECRAN_ACCUEIL);
     }
 
+    public TraiterIdentificationResponse traiterIdentification(String ps, String mdp) {
+        Client leClient = new Client().rechercheClientParPseudo(ps, mdp);
+        Produit leProduit = new Produit().rechercheProduitDuJour();
+        TraiterIdentificationResponse reponse = new TraiterIdentificationResponse(EnumTypeEcran.ECRAN_ACCUEIL_PERSO, leClient, leProduit);
+        return reponse;
+    }
 //    public static Session getInstance() {
 //        if (instance == null) {
 //            instance = new Session();
