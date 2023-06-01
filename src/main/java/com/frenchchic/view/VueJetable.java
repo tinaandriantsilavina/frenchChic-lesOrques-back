@@ -4,7 +4,9 @@ import com.frenchchic.controller.EnumTypeEcran;
 import com.frenchchic.controller.Session;
 import com.frenchchic.controller.TraitementAccueilPerso;
 import com.frenchchic.controller.TraiterConnexionResponse;
+import com.frenchchic.controller.TraitementListPanier;
 import com.frenchchic.model.Client;
+import com.frenchchic.model.Commande;
 import com.frenchchic.model.Produit;
 import com.frenchchic.utils.Utils;
 import javafx.application.Application;
@@ -16,18 +18,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.converter.IntegerStringConverter;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.function.UnaryOperator;
+import java.util.regex.Pattern;
 
 public class VueJetable extends Application implements Initializable {
     public final static String vueJetable= "/view/viewJetable.fxml";
@@ -105,8 +107,8 @@ public class VueJetable extends Application implements Initializable {
         Parent root = fxmlLoader.load();
         Produit produit = new Produit().rechercheProduitDuJour();
         TraitementAccueilPerso controller =  fxmlLoader.getController();
-        controller.setNomClient("klklklkl");
-        controller.setPrix(String.valueOf(produit.getPrix()));
+//        controller.setNomClient("klklklkl");
+//        controller.setPrix(String.valueOf(produit.getPrix()));
         AnchorPane anchorPane = new AnchorPane();
         anchorPane.getChildren().add(root);
         childPane.getChildren().setAll( anchorPane );
@@ -213,15 +215,15 @@ public class VueJetable extends Application implements Initializable {
 
 
 
-    public  void startHomeWindow() throws IOException,Exception {
-        Produit produit = new Produit().rechercheProduitDuJour();
+    public  void startAccueilPerso(Client client, Produit produit) throws IOException,Exception {
+//        Produit produitt = new Produit().rechercheProduitDuJour();
         FXMLLoader fxmlLoader = Utils.getFxml(VueJetable.vueJetable);
         VueJetable vue = fxmlLoader.getController();
         FXMLLoader perso = Utils.getFxml(VueJetable.PERSO);
         TraitementAccueilPerso persoController = perso.getController();
         persoController.setVueParent(vue);
         vue.setClient(client);
-        persoController.setNomClient(client.getPrenom()+" "+client.getNom());
+//        persoController.setNomClient(client.getPrenom()+" "+client.getNom());
         vue.loadChildPane(perso);
         Stage stage = new Stage();
         Scene scene = new Scene(fxmlLoader.getRoot());
@@ -253,7 +255,7 @@ public class VueJetable extends Application implements Initializable {
                     try {
                         Stage stage = (Stage) btnLogin.getScene().getWindow();
                         stage.close();
-                        startHomeWindow();
+                        startAccueilPerso(null,null);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     } catch (Exception e) {
@@ -264,21 +266,120 @@ public class VueJetable extends Application implements Initializable {
         });
     }
 
-
-//    @FXML
-//    private void onMousePressed(MouseEvent event) {
-//        xOffset = event.getSceneX();
-//        yOffset = event.getSceneY();
-//    }
-//
-//    @FXML
-//    private void onMouseDragged(MouseEvent event) {
-//        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//        stage.setX(event.getScreenX() - xOffset);
-//        stage.setY(event.getScreenY() - yOffset);
-//    }
-
     public Client getClient() {
         return client;
+    }
+
+
+
+
+    ///////////*********************  AccueilPersoController
+    private Produit produit;
+    @FXML
+    private Spinner<Integer> quantite;
+    @FXML
+    private Label nomClient;
+    @FXML
+    private Label nomProduit;
+    @FXML
+    private Label prix;
+    @FXML
+    private Button btnAjout;
+
+    @FXML
+    private Label stock;
+
+    public void initializeAccueilPerso() {
+        produit = new Produit().rechercheProduitDuJour();
+        initDynamicLabel();
+        initBtnAjout();
+        initChampNumber();
+    }
+    public void afficherPanier(){
+
+    }
+
+    public void initBtnAjout(){
+        btnAjout.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                try{
+                    Commande commande = new Commande();
+                    commande.ajouterProduit(produit, getQuantite());
+                    FXMLLoader panier = Utils.getFxml(VueJetable.PANIER);
+                    TraitementListPanier panierController = panier.getController();
+                    panierController.setCommande(commande);
+                    panierController.setListe();
+//                    getVueParent().loadChildPane(panier);
+                }catch(Exception ex){
+                    ex.printStackTrace();
+                }
+            }
+        });
+    }
+
+
+
+
+    public void initChampNumber(){
+        String numberRegex = "\\d+";
+        UnaryOperator<TextFormatter.Change> numberFilter = change -> {
+            String newText = change.getControlNewText();
+            if (Pattern.matches(numberRegex, newText)) {
+                return change;
+            }
+            return null;
+        };
+        TextFormatter<Integer> textFormatter = new TextFormatter<>(new IntegerStringConverter(), 1, numberFilter);
+        quantite.getEditor().setTextFormatter(textFormatter);
+        quantite.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, produit.getQuantiteEnStock()));
+    }
+
+    public void initDynamicLabel(){
+        produit = new Produit().rechercheProduitDuJour();
+        this.setPrix(String.valueOf(produit.getPrix()));
+        this.setStock(String.valueOf(produit.getQuantiteEnStock()));
+        this.setNomProduit(produit.getLibelle());
+    }
+
+    public Integer getQuantite() {
+        return quantite.getValue();
+    }
+
+    public void setQuantite(Spinner<Integer> quantite) {
+        this.quantite = quantite;
+    }
+
+    public Label getNomClient() {
+        return nomClient;
+    }
+
+
+
+    public Label getNomProduit() {
+        return nomProduit;
+    }
+
+    public VueJetable setNomProduit(String nomProduit) {
+        this.nomProduit.setText( nomProduit );
+        return this;
+    }
+
+    public Label getPrix() {
+        return prix;
+    }
+
+    public VueJetable setPrix(String prix) {
+        this.prix.setText( prix );
+        return this;
+    }
+
+    public String getStock() {
+        return this.stock.getText();
+    }
+
+    public VueJetable setStock(String stock) {
+        this.stock.setText(stock);
+        return this;
     }
 }

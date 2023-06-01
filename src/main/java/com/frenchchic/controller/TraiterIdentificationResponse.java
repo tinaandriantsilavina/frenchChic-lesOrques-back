@@ -96,7 +96,7 @@ public class TraiterIdentificationResponse implements Initializable {
         TraitementAccueilPerso persoController = perso.getController();
         persoController.setVueParent(vue);
 //        vue.setClient(client);
-        persoController.setNomClient(client.getPrenom()+" "+client.getNom());
+//        persoController.setNomClient(client.getPrenom()+" "+client.getNom());
         vue.loadChildPane(perso);
         Stage stage = new Stage();
         Scene scene = new Scene(fxmlLoader.getRoot());

@@ -23,26 +23,4 @@ import java.util.ResourceBundle;
 
 public class TraitementConnexion  {
 
-    private double xOffset = 0;
-    private double yOffset = 0;
-
-
-//    private boolean isValid(){
-//        boolean isValid = true;
-//        Client cl= new Client().rechercheClientParPseudo(tfPseudo.getText(),pfPass.getText());
-//        if(!tfPseudo.getText().equals("Admin")){
-//            isValid = false;
-//            errorMesssage = "Pseudo invalide";
-//        }
-//        if(!pfPass.getText().equals("123")){
-//            isValid = false;
-//            if(errorMesssage.isEmpty()){
-//                errorMesssage = "Mot de passe  invalide";
-//            }else{
-//                errorMesssage = errorMesssage+" \nMot de passe  invalide";
-//            }
-//        }
-//        errorMessageLabel.setText(errorMesssage);
-//        return isValid;
-//    }
 }
