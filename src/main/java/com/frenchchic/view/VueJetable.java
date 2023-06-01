@@ -11,7 +11,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -19,7 +18,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.util.converter.IntegerStringConverter;
 
 import java.io.IOException;
 import java.net.URL;
@@ -287,7 +285,7 @@ public class VueJetable extends Application implements Initializable {
     public Label stock;
 
     public void initializeAccueilPerso(VueJetable vuePerso,Client client , Produit produit) {
-        initDynamicLabel(vuePerso,client,produit);
+        acceuilPersoInitInput(vuePerso,client,produit);
         initBtnAjout(vuePerso);
         initChampNumber(vuePerso, produit);
     }
@@ -303,7 +301,7 @@ public class VueJetable extends Application implements Initializable {
                     Commande commande = new Commande();
                     commande.ajouterProduit(produit, quantite.getValue());
                     FXMLLoader panier = Utils.getFxml(VueJetable.PANIER);
-                    TraitementListPanier panierController = panier.getController();
+                    TraitementAjoutPanier panierController = panier.getController();
                     panierController.setCommande(commande);
                     panierController.setListe();
                 }catch(Exception ex){
@@ -327,10 +325,24 @@ public class VueJetable extends Application implements Initializable {
         v.quantite.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, prod.getQuantiteEnStock()));
     }
 
-    public void initDynamicLabel(VueJetable v, Client cl,  Produit produit){
+    public void acceuilPersoInitInput(VueJetable v, Client cl,  Produit produit){
         v.prix.setText( (String.valueOf(produit.getPrix())) );
         v.stock.setText(String.valueOf(produit.getQuantiteEnStock()));
         v.nomProduit.setText( produit.getLibelle() );
         v.nomClient.setText(cl.getPrenom()+" "+cl.getNom());
+        this.quantite = v.quantite;
+        this.produit = produit;
     }
+
+
+
+
+
+
+
+
+
+
+
+    // ************
 }

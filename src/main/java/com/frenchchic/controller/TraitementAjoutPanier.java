@@ -2,7 +2,6 @@ package com.frenchchic.controller;
 
 import com.frenchchic.model.Commande;
 import com.frenchchic.model.LigneCommande;
-import com.frenchchic.view.VueJetable;
 import javafx.beans.property.ReadOnlyDoubleWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -18,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class TraitementListPanier extends ViewController implements Initializable {
+public class TraitementAjoutPanier extends ViewController implements Initializable {
     Commande commande ;
     @FXML
     private TableView<LigneCommande> panierTable;
