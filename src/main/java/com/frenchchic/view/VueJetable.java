@@ -1,26 +1,37 @@
 package com.frenchchic.view;
 
 import com.frenchchic.controller.*;
+import com.frenchchic.metier.Panier;
 import com.frenchchic.model.Client;
 import com.frenchchic.model.Commande;
+import com.frenchchic.model.LigneCommande;
 import com.frenchchic.model.Produit;
 import com.frenchchic.utils.Utils;
 import javafx.application.Application;
+import javafx.beans.property.ReadOnlyDoubleWrapper;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
@@ -28,8 +39,10 @@ import java.util.regex.Pattern;
 public class VueJetable extends Application implements Initializable {
 //    public VueJetable vueJetable;
     public final static String VUEJETABLE= "/view/viewJetable.fxml";
+    public final static String LOGIN ="/view/login.fxml";
     public final static String PANIER= "/view/panier.fxml";
     public final static String PERSO= "/view/perso.fxml";
+
     static Session laSession;
 
     @FXML
@@ -42,41 +55,26 @@ public class VueJetable extends Application implements Initializable {
     @FXML
     private Button btnAffichage;
 
-    public void setClient(Client client) {
-        this.client = client;
-    }
-    public void start(Stage stage) throws IOException {
-        laSession = new Session();
-        TraiterConnexionResponse reponse = laSession.traiterConnexion();
-        if (reponse.typeEcran == EnumTypeEcran.ECRAN_ACCUEIL) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/login.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
-            initializeTraitementConnexion(fxmlLoader.getController());
-            stage.setTitle("Home");
-            stage.setScene(scene);
-            stage.show();
+    public VueJetable vueParent;
+
+    public void setClient(Client client) { this.client = client; }
+    public void start(Stage stage) throws Exception {
+        try{
+            laSession = new Session();
+            TraiterConnexionResponse reponse = laSession.traiterConnexion();
+            if (reponse.typeEcran == EnumTypeEcran.ECRAN_ACCUEIL) {
+                FXMLLoader fxmlLoader = Utils.getFxml(LOGIN);
+                Scene scene = new Scene(fxmlLoader.getRoot());
+                initializeTraitementConnexion(fxmlLoader.getController());
+                stage.setTitle("Home");
+                stage.setScene(scene);
+                stage.show();
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
         }
 
     }
-
-//    public void startVueJetable() throws IOException, Exception {
-//        Stage stage = new Stage();
-//        stage.close();
-//        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/viewJetable.fxml"));
-//        Scene scene = new Scene(fxmlLoader.load());
-//        VueJetable temp = fxmlLoader.getController();
-//        stage.setTitle("French chic");
-//        stage.setScene(scene);
-//        stage.show();
-//    }
-//    public void loadChildPane(String fxmlPath) {
-//        try {
-//            childPane.getChildren().clear();
-//            childPane.getChildren().add(FXMLLoader.load(getClass().getResource(fxmlPath)));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     public void loadChildPane(FXMLLoader fxml) {
         try {
@@ -87,27 +85,23 @@ public class VueJetable extends Application implements Initializable {
         }
     }
 
-//    public void loadChildPane(Parent parent) {
-//        childPane.getChildren().clear();
-//        childPane.getChildren().add(parent);
-//    }
+    public void setChildPane(Node node) {
+        childPane.getChildren().setAll(node);
+    }
+
     @FXML
     void afficherEcranPanier(ActionEvent event) throws Exception {
         childPane.getChildren().setAll( (AnchorPane) FXMLLoader.load(getClass().getResource("/view/panier.fxml")));
     }
 
-    @FXML
-    void afficherEcranAccueilPerso(ActionEvent event) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/perso.fxml"));
-        Parent root = fxmlLoader.load();
-        Produit produit = new Produit().rechercheProduitDuJour();
-        TraitementAccueilPerso controller =  fxmlLoader.getController();
-//        controller.setNomClient("klklklkl");
-//        controller.setPrix(String.valueOf(produit.getPrix()));
-        AnchorPane anchorPane = new AnchorPane();
-        anchorPane.getChildren().add(root);
-        childPane.getChildren().setAll( anchorPane );
-    }
+//    @FXML
+//    void afficherEcranAccueilPerso(ActionEvent event) throws Exception {
+//        FXMLLoader fxmlLoader = Utils.getFxml(PERSO);
+//        Parent root = fxmlLoader.getRoot();
+//        AnchorPane anchorPane = new AnchorPane();
+//        anchorPane.getChildren().add(root);
+//        childPane.getChildren().setAll( anchorPane );
+//    }
 
     @FXML
     void afficherEcranAccueil(ActionEvent event) throws Exception {
@@ -125,16 +119,6 @@ public class VueJetable extends Application implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
-
-//    public Stage getPrimaryStage() {
-//        return primaryStage;
-//    }
-//
-//    public void setPrimaryStage(Stage primaryStage) {
-//        this.primaryStage = primaryStage;
-//    }
-
-
 
 
 
@@ -213,10 +197,10 @@ public class VueJetable extends Application implements Initializable {
 
     public  void startAccueilPerso( Client client, Produit produit) throws IOException,Exception {
         FXMLLoader fxmlLoader = Utils.getFxml(VueJetable.VUEJETABLE);
-        VueJetable vue = fxmlLoader.getController();
+        vueParent = fxmlLoader.getController();
         FXMLLoader perso = Utils.getFxml(VueJetable.PERSO);
         initializeAccueilPerso(perso.getController(),client,produit);
-        vue.loadChildPane(perso);
+        vueParent.loadChildPane(perso);
         Stage stage = new Stage();
         Scene scene = new Scene(fxmlLoader.getRoot());
         stage.setTitle("French chic");
@@ -285,8 +269,8 @@ public class VueJetable extends Application implements Initializable {
     public Label stock;
 
     public void initializeAccueilPerso(VueJetable vuePerso,Client client , Produit produit) {
-        acceuilPersoInitInput(vuePerso,client,produit);
-        initBtnAjout(vuePerso);
+        initInputAcceuilPerso(vuePerso,client,produit);
+//        initBtnAjout(vuePerso);
         initChampNumber(vuePerso, produit);
     }
     public void afficherPanier(){
@@ -294,16 +278,21 @@ public class VueJetable extends Application implements Initializable {
     }
 
     public void initBtnAjout(VueJetable v){
+        vueParent = v;
         v.btnAjout.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 try{
+                    FXMLLoader fxmlLoader = Utils.getFxml(VueJetable.VUEJETABLE);
+                    VueJetable vue = fxmlLoader.getController();
                     Commande commande = new Commande();
                     commande.ajouterProduit(produit, quantite.getValue());
                     FXMLLoader panier = Utils.getFxml(VueJetable.PANIER);
-                    TraitementAjoutPanier panierController = panier.getController();
-                    panierController.setCommande(commande);
-                    panierController.setListe();
+                    TraitementAjoutPanierReponse response = laSession.traiterAjoutPanier(produit,quantite.getValue());
+                    panier.getController();
+                    vueParent.loadChildPane(panier);
+//                    panierController.commande = commande;
+//                    panierController.setListeCommande();
                 }catch(Exception ex){
                     ex.printStackTrace();
                 }
@@ -325,7 +314,7 @@ public class VueJetable extends Application implements Initializable {
         v.quantite.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, prod.getQuantiteEnStock()));
     }
 
-    public void acceuilPersoInitInput(VueJetable v, Client cl,  Produit produit){
+    public void initInputAcceuilPerso(VueJetable v, Client cl,  Produit produit){
         v.prix.setText( (String.valueOf(produit.getPrix())) );
         v.stock.setText(String.valueOf(produit.getQuantiteEnStock()));
         v.nomProduit.setText( produit.getLibelle() );
@@ -337,12 +326,79 @@ public class VueJetable extends Application implements Initializable {
 
 
 
+    // ************ Traitement Ajout pannier
+
+//    public Commande commande ;
+
+    public void initalizeAjoutPanier(){
+
+    }
+
+    @FXML
+    public TableView<LigneCommande> tabPanier_panierTable;
+    @FXML
+    public TableColumn<LigneCommande,String> tabPanier_libelle;
+    @FXML
+    public TableColumn<LigneCommande,String> tabPanier_prix;
+    @FXML
+    public TableColumn<LigneCommande,String> tabPanier_quantite;
+    @FXML
+    public TableColumn<LigneCommande,String> tabPanier_montant;
+    @FXML
+    public TableColumn<LigneCommande,String> tabPanier_stock;
+    public ReadOnlyDoubleWrapper doubleWrap;
+
+    ObservableList<Panier> tabPanier_listPanier = FXCollections.observableArrayList();
+
+    private void loadData() {
+        tabPanier_libelle.setCellValueFactory(new PropertyValueFactory<>("libelle"));
+        tabPanier_prix.setCellValueFactory(new PropertyValueFactory<>("prix"));
+        tabPanier_quantite.setCellValueFactory(new PropertyValueFactory<>("quantite"));
+        tabPanier_montant.setCellValueFactory(new PropertyValueFactory<>("montant"));
+        tabPanier_stock.setCellValueFactory(new PropertyValueFactory<>("stock"));
+    }
+
+    public void setListeCommande(Commande commande) {
+        ObservableList<LigneCommande> list = FXCollections.observableList( commande.getLesCommandes());
+        tabPanier_panierTable.setItems(list);
+        tabPanier_libelle.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getProduit().getLibelle()));
+        tabPanier_prix.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getProduit().getPrix())));
+        tabPanier_quantite.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getQuantite())));
+        tabPanier_montant.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getQuantite())));
+        tabPanier_stock.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getProduit().getQuantiteEnStock())));
+    }
+
+    public void afficherFenetreCommande(VueJetable v, Produit produit, Integer quantite){
+
+    }
 
 
 
 
+    @FXML
+    private void afficherCommande(ActionEvent event) {
+        try {
+            Node source = (Node) event.getSource();
+            Scene scene = source.getScene();
+            Window window = scene.getWindow();
 
+            if (window instanceof Stage) {
+                Stage stage = (Stage) window;
+                FXMLLoader loader = (FXMLLoader) stage.getScene().getUserData();
+                VueJetable controller = loader.getController();
+            }
 
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource(PANIER));
+//            loader.setController(this);
+//            Parent root = loader.load();
+//            // Accédez au contrôleur de la vue si vous avez besoin d'y accéder pour configurer des éléments spécifiques
+//            VueJetable controller = loader.getController();
+////            controller.initialize();
+//            // Appelez la méthode setChildPane pour changer le contenu du childPane
+//            setChildPane(root);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
-    // ************
 }

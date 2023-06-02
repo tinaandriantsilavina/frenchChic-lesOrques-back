@@ -35,15 +35,15 @@
                         <Image url="@../img/menu.png" />
                      </image>
                   </ImageView>
-                  <Button layoutX="73.0" layoutY="4.0" mnemonicParsing="false" onAction="#afficherEcranAccueilPerso" prefHeight="23.0" prefWidth="129.0" stylesheets="@../values/style.css" text="Produit du jour">
-                     <font>
-                        <Font name="Arial" size="10.0" />
-                     </font>
-                     <styleClass>
-                        <String fx:value="btn-login" />
-                        <String fx:value="btn-menu" />
-                     </styleClass>
-                  </Button>
+<!--                  <Button layoutX="73.0" layoutY="4.0" mnemonicParsing="false" onAction="#afficherEcranAccueilPerso" prefHeight="23.0" prefWidth="129.0" stylesheets="@../values/style.css" text="Produit du jour">-->
+<!--                     <font>-->
+<!--                        <Font name="Arial" size="10.0" />-->
+<!--                     </font>-->
+<!--                     <styleClass>-->
+<!--                        <String fx:value="btn-login" />-->
+<!--                        <String fx:value="btn-menu" />-->
+<!--                     </styleClass>-->
+<!--                  </Button>-->
                </children>
                <VBox.margin>
                   <Insets top="70.0" />

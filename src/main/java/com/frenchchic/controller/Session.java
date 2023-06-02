@@ -20,6 +20,13 @@ public class Session {
         TraiterIdentificationResponse reponse = new TraiterIdentificationResponse(EnumTypeEcran.ECRAN_ACCUEIL_PERSO, leClient, leProduit);
         return reponse;
     }
+
+    public TraitementAjoutPanierReponse traiterAjoutPanier(Produit leProduit, int quantite) {
+        Commande laCommande = new Commande();
+        laCommande.ajouterProduit(leProduit, quantite);
+        TraitementAjoutPanierReponse reponse = new TraitementAjoutPanierReponse(EnumTypeEcran.ECRAN_PANIER, laCommande);
+        return reponse;
+    }
 //    public static Session getInstance() {
 //        if (instance == null) {
 //            instance = new Session();

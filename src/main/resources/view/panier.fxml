@@ -6,24 +6,24 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="401.0" prefWidth="656.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.frenchchic.controller.TraitementAjoutPanier">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="401.0" prefWidth="656.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.frenchchic.view.VueJetable">
    <children>
       <Label layoutX="29.0" layoutY="30.0" prefHeight="17.0" prefWidth="154.0" text="Votre panier" textFill="#00a7cd">
          <font>
             <Font name="Arial Black" size="17.0" />
          </font>
       </Label>
-      <TableView fx:id="panierTable" layoutX="19.0" layoutY="63.0" prefHeight="260.0" prefWidth="619.0">
+      <TableView fx:id="tabPanier_panierTable" layoutX="19.0" layoutY="63.0" prefHeight="260.0" prefWidth="619.0">
         <columns>
-          <TableColumn fx:id="libelle" prefWidth="291.0" text="Libellé" />
-          <TableColumn fx:id="prix" prefWidth="79.0" text="Prix" />
-            <TableColumn fx:id="quantite" prefWidth="60.0" text="Quantité" />
-            <TableColumn fx:id="montant" prefWidth="120.0" text="Montant" />
-            <TableColumn fx:id="stock" prefWidth="68.0" text="Stock" />
+          <TableColumn fx:id="tabPanier_libelle" prefWidth="291.0" text="Libellé" />
+          <TableColumn fx:id="tabPanier_prix" prefWidth="79.0" text="Prix" />
+            <TableColumn fx:id="tabPanier_quantite" prefWidth="60.0" text="Quantité" />
+            <TableColumn fx:id="tabPanier_montant" prefWidth="120.0" text="Montant" />
+            <TableColumn fx:id="tabPanier_stock" prefWidth="68.0" text="Stock" />
         </columns>
       </TableView>
       <Label layoutX="29.0" layoutY="342.0" prefHeight="17.0" prefWidth="100.0" text="Montant panier : " />
-      <Label fx:id="montantPanier" layoutX="129.0" layoutY="342.0" prefHeight="17.0" prefWidth="136.0" text="0">
+      <Label fx:id="tabPanier_montantPanier" layoutX="129.0" layoutY="342.0" prefHeight="17.0" prefWidth="136.0" text="0">
          <font>
             <Font name="Arial Black" size="11.0" />
          </font>
