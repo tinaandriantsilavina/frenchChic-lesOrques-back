@@ -6,9 +6,9 @@ import com.frenchchic.model.Produit;
 
 public class Session {
     private EnumTypeEcran typeEcran;
-//    private static Session instance;
     private static Client client;
     private Commande laCommande;
+
 
     public TraiterConnexionResponse traiterConnexion() {
         return new TraiterConnexionResponse(EnumTypeEcran.ECRAN_ACCUEIL);
@@ -27,10 +27,4 @@ public class Session {
         TraitementAjoutPanierReponse reponse = new TraitementAjoutPanierReponse(EnumTypeEcran.ECRAN_PANIER, laCommande);
         return reponse;
     }
-//    public static Session getInstance() {
-//        if (instance == null) {
-//            instance = new Session();
-//        }
-//        return instance;
-//    }
 }
