@@ -4,6 +4,9 @@ import com.frenchchic.model.Client;
 import com.frenchchic.model.Commande;
 import com.frenchchic.model.Produit;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Session {
     private EnumTypeEcran typeEcran;
     private static Client client;
@@ -25,6 +28,12 @@ public class Session {
         Commande laCommande = new Commande();
         laCommande.ajouterProduit(leProduit, quantite);
         TraitementAjoutPanierReponse reponse = new TraitementAjoutPanierReponse(EnumTypeEcran.ECRAN_PANIER, laCommande);
+        return reponse;
+    }
+
+    public TraiterListProduitResponse traiterListProduit() {
+        List<Produit> produit = new Produit().getLesProduits();
+        TraiterListProduitResponse reponse = new TraiterListProduitResponse(EnumTypeEcran.ECRAN_PRODUIT, produit);
         return reponse;
     }
 }

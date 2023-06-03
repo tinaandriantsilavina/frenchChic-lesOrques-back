@@ -9,6 +9,8 @@ import com.frenchchic.model.Produit;
 import com.frenchchic.utils.Utils;
 import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,6 +26,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
@@ -34,6 +37,7 @@ public class VueJetable extends Application implements Initializable {
     public final static String LOGIN ="/view/login.fxml";
     public final static String PANIER= "/view/panier.fxml";
     public final static String PERSO= "/view/perso.fxml";
+    public final static String PRODUIT= "/view/produit.fxml";
     private Client client;
     static Session laSession;
     @FXML
@@ -83,6 +87,31 @@ public class VueJetable extends Application implements Initializable {
     public TableColumn<LigneCommande,String> tabPanier_stock;
     ObservableList<Panier> tabPanier_listPanier = FXCollections.observableArrayList();
 
+
+    // produit
+    @FXML
+    private TextField textFieldRechercheProduit;
+
+    @FXML
+    public Button  btnMenuProduit;
+
+    @FXML
+    private TableView<Produit> tabProduit;
+
+    @FXML
+    private TableColumn<Produit, String> tabProduit_ref;
+
+    @FXML
+    private TableColumn<Produit, String> tabProduit_libelle;
+
+    @FXML
+    private TableColumn<Produit, String> tabProduit_prix;
+
+    @FXML
+    private TableColumn<Produit, String> tabProduit_estJour;
+
+    @FXML
+    private TableColumn<Produit, String> tabProduit_stock;
     public void start(Stage stage) throws Exception {
         try{
             laSession = new Session();
@@ -91,6 +120,7 @@ public class VueJetable extends Application implements Initializable {
                 FXMLLoader fxmlLoader = Utils.getFxml(LOGIN);
                 Scene scene = new Scene(fxmlLoader.getRoot());
                 login_initializeTraitementConnexion(fxmlLoader.getController());
+                initMenuBtnLogin();
                 stage.setTitle("Home");
                 stage.setScene(scene);
                 stage.show();
@@ -108,10 +138,6 @@ public class VueJetable extends Application implements Initializable {
         }
     }
 
-    @FXML
-    void afficherEcranPanier(ActionEvent event) throws Exception {
-        childPane.getChildren().setAll( (AnchorPane) FXMLLoader.load(getClass().getResource("/view/panier.fxml")));
-    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
@@ -165,6 +191,7 @@ public class VueJetable extends Application implements Initializable {
         Scene scene = new Scene(fxmlLoader.getRoot());
         stage.setTitle("French chic");
         stage.setScene(scene);
+        initBtnMenuProduit();
         stage.show();
     }
 
@@ -183,6 +210,8 @@ public class VueJetable extends Application implements Initializable {
                 System.exit(0);
             }
         });
+    }
+    public void initMenuBtnLogin(){
         btnLogin.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -204,7 +233,6 @@ public class VueJetable extends Application implements Initializable {
             }
         });
     }
-
    //**** Accueil Perso
     public void perso_initializeAccueilPerso(VueJetable vuePerso, Client client , Produit produit) {
         perso_initInputAcceuilPerso(vuePerso,client,produit);
@@ -253,6 +281,7 @@ public class VueJetable extends Application implements Initializable {
     }
 
 
+
     //**** Panier ****\\
     public void tabPanier_setListeCommande(Commande commande, VueJetable panier) {
         ObservableList<LigneCommande> list = FXCollections.observableList( commande.getLesCommandes());
@@ -262,5 +291,46 @@ public class VueJetable extends Application implements Initializable {
         panier.tabPanier_quantite.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getQuantite())));
         panier.tabPanier_montant.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getPrix())));
         panier.tabPanier_stock.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getProduit().getQuantiteEnStock())));
+    }
+
+
+    // Produit
+    public void initBtnMenuProduit(){
+        vueParent.btnMenuProduit.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                try{
+                    FXMLLoader vue_produit = Utils.getFxml(PRODUIT);
+                    TraiterListProduitResponse response = laSession.traiterListProduit();
+                    // init Commande
+                    tabProduit_setListe(vue_produit.getController(),response.lesProduits );
+                    initTextFieldRechercheProduit(vue_produit.getController());
+                    vueParent.loadChildPane(vue_produit);
+                }catch(Exception ex){
+                    ex.printStackTrace();
+                }
+            }
+        });
+    }
+    public void tabProduit_setListe(VueJetable vueProduit, List<Produit> produit) {
+        ObservableList<Produit> list = FXCollections.observableList( produit);
+        vueProduit.tabProduit.setItems(list);
+        vueProduit.tabProduit_ref.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getReference()));
+        vueProduit.tabProduit_libelle.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getLibelle())));
+        vueProduit.tabProduit_prix.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getPrix())));
+        vueProduit.tabProduit_estJour.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().isEstDuJour())));
+        vueProduit.tabProduit_stock.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getQuantiteEnStock())));
+    }
+    public void initTextFieldRechercheProduit(VueJetable vueProduit){
+        vueProduit.textFieldRechercheProduit.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if(newValue!=null && !newValue.trim().equals("")){
+                    tabProduit_setListe(vueProduit, new Produit().rechercheProduitParMotCle(newValue));
+                }else{
+                    tabProduit_setListe(vueProduit, new Produit().getLesProduits());
+                }
+            }
+        });
     }
 }
