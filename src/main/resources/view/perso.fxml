@@ -9,23 +9,23 @@
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.frenchchic.view.VueJetable">
    <children>
       <Label layoutX="60.0" layoutY="122.0" prefHeight="27.0" prefWidth="63.0" text="Bonjour" />
-      <Label fx:id="nomClient" layoutX="123.0" layoutY="122.0" prefHeight="27.0" prefWidth="157.0" />
+      <Label fx:id="perso_nomClient" layoutX="123.0" layoutY="122.0" prefHeight="27.0" prefWidth="157.0" />
       <Label layoutX="60.0" layoutY="160.0" prefHeight="27.0" prefWidth="142.0" text="Le produit du jour est le" />
-      <Label fx:id="nomProduit" alignment="CENTER" layoutX="202.0" layoutY="160.0" prefHeight="27.0" prefWidth="142.0" textAlignment="CENTER">
+      <Label fx:id="perso_nomProduit" alignment="CENTER" layoutX="202.0" layoutY="160.0" prefHeight="27.0" prefWidth="142.0" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
       <Label layoutX="344.0" layoutY="160.0" prefHeight="27.0" prefWidth="75.0" text="au prix  de " />
-      <Label fx:id="prix" alignment="CENTER" layoutX="419.0" layoutY="160.0" prefHeight="27.0" prefWidth="63.0">
+      <Label fx:id="perso_prixProduit" alignment="CENTER" layoutX="419.0" layoutY="160.0" prefHeight="27.0" prefWidth="63.0">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
       <Label layoutX="482.0" layoutY="160.0" prefHeight="27.0" prefWidth="75.0" text=" €" />
       <Label layoutX="204.0" layoutY="235.0" text="Quantité:" />
-      <Spinner fx:id="quantite" layoutX="267.0" layoutY="231.0" prefHeight="25.0" prefWidth="75.0" />
-      <Button fx:id="btnAjout" layoutX="191.0" layoutY="282.0" mnemonicParsing="false"  prefHeight="25.0" prefWidth="218.0" styleClass="btn-login" stylesheets="@../values/style.css" text="Ajouter le produit du jour au panier" textFill="WHITE" />
+      <Spinner fx:id="perso_quantite" layoutX="267.0" layoutY="231.0" prefHeight="25.0" prefWidth="75.0" />
+      <Button fx:id="perso_btnAjout" layoutX="191.0" layoutY="282.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="218.0" styleClass="btn-login" stylesheets="@../values/style.css" text="Ajouter le produit du jour au panier" textFill="WHITE" />
       <Label layoutX="60.0" layoutY="200.0" prefHeight="27.0" prefWidth="142.0" text="Quantité en stock :" />
-      <Label fx:id="stock" alignment="CENTER" layoutX="173.0" layoutY="200.0" prefHeight="27.0" prefWidth="63.0" textAlignment="CENTER">
+      <Label fx:id="perso_stock" alignment="CENTER" layoutX="173.0" layoutY="200.0" prefHeight="27.0" prefWidth="63.0" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
