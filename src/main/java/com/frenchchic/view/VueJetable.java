@@ -1,7 +1,6 @@
 package com.frenchchic.view;
 
 import com.frenchchic.controller.*;
-import com.frenchchic.metier.Panier;
 import com.frenchchic.model.Client;
 import com.frenchchic.model.Commande;
 import com.frenchchic.model.LigneCommande;
@@ -13,7 +12,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,7 +19,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -85,7 +82,6 @@ public class VueJetable extends Application implements Initializable {
     public TableColumn<LigneCommande,String> tabPanier_montant;
     @FXML
     public TableColumn<LigneCommande,String> tabPanier_stock;
-    ObservableList<Panier> tabPanier_listPanier = FXCollections.observableArrayList();
 
 
     // produit
@@ -301,7 +297,7 @@ public class VueJetable extends Application implements Initializable {
             public void handle(MouseEvent mouseEvent) {
                 try{
                     FXMLLoader vue_produit = Utils.getFxml(PRODUIT);
-                    TraiterListProduitResponse response = laSession.traiterListProduit();
+                    TraiterProduitResponse response = laSession.traiterListProduit();
                     // init Commande
                     tabProduit_setListe(vue_produit.getController(),response.lesProduits );
                     initTextFieldRechercheProduit(vue_produit.getController());
@@ -325,11 +321,8 @@ public class VueJetable extends Application implements Initializable {
         vueProduit.textFieldRechercheProduit.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if(newValue!=null && !newValue.trim().equals("")){
-                    tabProduit_setListe(vueProduit, new Produit().rechercheProduitParMotCle(newValue));
-                }else{
-                    tabProduit_setListe(vueProduit, new Produit().getLesProduits());
-                }
+                TraiterProduitResponse rep = new TraiterProduitResponse();
+                tabProduit_setListe(vueProduit, rep.rechercheProduit(newValue));
             }
         });
     }

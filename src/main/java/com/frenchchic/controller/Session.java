@@ -4,7 +4,6 @@ import com.frenchchic.model.Client;
 import com.frenchchic.model.Commande;
 import com.frenchchic.model.Produit;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Session {
@@ -31,9 +30,9 @@ public class Session {
         return reponse;
     }
 
-    public TraiterListProduitResponse traiterListProduit() {
+    public TraiterProduitResponse traiterListProduit() {
         List<Produit> produit = new Produit().getLesProduits();
-        TraiterListProduitResponse reponse = new TraiterListProduitResponse(EnumTypeEcran.ECRAN_PRODUIT, produit);
+        TraiterProduitResponse reponse = new TraiterProduitResponse(EnumTypeEcran.ECRAN_PRODUIT, produit);
         return reponse;
     }
 }
