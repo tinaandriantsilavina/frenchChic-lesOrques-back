@@ -39,8 +39,8 @@ public class Client {
     public void initLesClients() {
         this.lesClients = Arrays.asList(
             new Client("c001", "Dupont", "Marie", "15 rue des Romarins", "Dupont", "15 rue des Romarins", "123"),
-            new Client("c001", "Martin", "Thomas", "24 rue de la libération", "Martin", "24 rue de la libération", "123"),
-            new Client("c001", "Hubert", "Robert", "5 rue de la paix", "Dupont", "5 rue de la paix", "123")
+            new Client("c002", "Martin", "Thomas", "24 rue de la libération", "Martin", "24 rue de la libération", "123"),
+            new Client("c003", "Hubert", "Robert", "5 rue de la paix", "Dupont", "5 rue de la paix", "123")
         );
     }
 
