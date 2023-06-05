@@ -15,10 +15,16 @@ public class Produit {
 
     public List<Produit> rechercheProduitParMotCle(String motCle) {
         List<Produit> results = getLesProduits().stream()
-                        .filter(p -> p.motCles.contains(motCle))
+                        .filter(p -> p.isLike(motCle))
                         .collect(Collectors.toList());
 
         return results;
+    }
+    
+    private boolean isLike(String motCle) {
+        String spattern = ".*" + motCle + ".*";
+        return ( getMotCles().stream().anyMatch(s -> s.matches(spattern))
+                || libelle.matches(spattern) );
     }
 
     public void retirerDuStock(int quantite) throws Exception {
