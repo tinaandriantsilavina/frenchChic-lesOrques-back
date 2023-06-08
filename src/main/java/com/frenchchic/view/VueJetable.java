@@ -119,6 +119,7 @@ public class VueJetable extends Application implements Initializable {
                 Scene scene = new Scene(fxmlLoader.getRoot());
                 login_initializeTraitementConnexion(fxmlLoader.getController());
                 initMenuBtnLogin();
+                stage.setResizable(false);
                 stage.setTitle("Home");
                 stage.setScene(scene);
                 stage.show();
@@ -186,6 +187,7 @@ public class VueJetable extends Application implements Initializable {
         perso_initializeAccueilPerso(perso.getController(),client,produit);
         vueParent.loadChildPane(perso);
         Stage stage = new Stage();
+        stage.setResizable(false);
         Scene scene = new Scene(fxmlLoader.getRoot());
         stage.getIcons().add(new Image(getClass().getResource(ICON).toExternalForm())  );
         stage.setTitle("French chic");
