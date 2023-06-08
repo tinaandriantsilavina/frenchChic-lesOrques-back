@@ -18,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -35,6 +36,7 @@ public class VueJetable extends Application implements Initializable {
     public final static String PANIER= "/view/panier.fxml";
     public final static String PERSO= "/view/perso.fxml";
     public final static String PRODUIT= "/view/produit.fxml";
+    public final static String ICON= "/img/logo.PNG";
     private Client client;
     static Session laSession;
     @FXML
@@ -185,6 +187,7 @@ public class VueJetable extends Application implements Initializable {
         vueParent.loadChildPane(perso);
         Stage stage = new Stage();
         Scene scene = new Scene(fxmlLoader.getRoot());
+        stage.getIcons().add(new Image(getClass().getResource(ICON).toExternalForm())  );
         stage.setTitle("French chic");
         stage.setScene(scene);
         initBtnMenuProduit();
