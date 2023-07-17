@@ -88,6 +88,8 @@ public class VueJetable extends Application implements Initializable {
     @FXML
     public Label tabPanier_montantPanier;
 
+    @FXML
+    public Button panier_btnPanier;
 
     // produit
     @FXML
@@ -196,6 +198,7 @@ public class VueJetable extends Application implements Initializable {
         stage.setTitle("French chic");
         stage.setScene(scene);
         initBtnMenuProduit();
+        initBtnMenuPanier();
         stage.show();
     }
 
@@ -337,4 +340,23 @@ public class VueJetable extends Application implements Initializable {
             }
         });
     }
+
+
+
+    // Panier
+        public void initBtnMenuPanier(){
+            vueParent.panier_btnPanier.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    try{
+                        FXMLLoader panier = Utils.getFxml(VueJetable.PANIER);
+                        TraitementAjoutPanierReponse response = laSession.traiterPanierEncours();
+                        tabPanier_setListeCommande(response.laCommande, panier.getController());
+                        vueParent.loadChildPane(panier);
+                    }catch(Exception ex){
+                        ex.printStackTrace();
+                    }
+                }
+            });
+        }
 }

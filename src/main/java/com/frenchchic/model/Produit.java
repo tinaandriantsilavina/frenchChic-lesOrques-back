@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public class Produit {
+public class Produit implements Comparable<Produit> {
     String reference;
     String libelle;
     List<String> motCles;
@@ -67,6 +67,7 @@ public class Produit {
         this.estDuJour = estDuJour;
         this.quantiteEnStock = quantiteEnStock;
     }
+
 
     public String getReference() {
         return reference;
@@ -139,5 +140,11 @@ public class Produit {
         pDuJour.retirerDuStock(1);
         System.out.println(produit.getLesProduits());
     }
+
+    @Override
+    public int compareTo(Produit o) {
+        return this.getReference().compareTo(o.getReference());
+    }
+
 }
 

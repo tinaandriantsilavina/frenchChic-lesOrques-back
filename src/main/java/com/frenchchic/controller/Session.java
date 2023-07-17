@@ -10,11 +10,14 @@ public class Session {
     private EnumTypeEcran typeEcran;
     private static Client client;
     private Commande laCommande;
+    private Produit produit;
 
     public TraiterConnexionResponse traiterConnexion() {
         return new TraiterConnexionResponse(EnumTypeEcran.ECRAN_ACCUEIL);
     }
-
+    public Session(){
+        produit = new Produit();
+    }
     public TraiterIdentificationResponse traiterIdentification(String ps, String mdp) {
         Client leClient = new Client().rechercheClientParPseudo(ps, mdp);
         Produit leProduit = new Produit().rechercheProduitDuJour();
@@ -22,16 +25,23 @@ public class Session {
         return reponse;
     }
 
-    public TraitementAjoutPanierReponse traiterAjoutPanier(Produit leProduit, int quantite) {
-        Commande laCommande = new Commande();
+    public TraitementAjoutPanierReponse traiterAjoutPanier(Produit leProduit, int quantite) throws Exception {
+        laCommande = new Commande();
         laCommande.ajouterProduit(leProduit, quantite);
-        TraitementAjoutPanierReponse reponse = new TraitementAjoutPanierReponse(EnumTypeEcran.ECRAN_PANIER, laCommande);
-        return reponse;
+        for (int i=0; i<produit.getLesProduits().size(); i++){
+            if(produit.getLesProduits().get(i).getReference().equals(leProduit.getReference())){
+                produit.getLesProduits().get(i).retirerDuStock(quantite);
+                break;
+            }
+        }
+        return traiterPanierEncours() ;
+    }
+    public TraitementAjoutPanierReponse traiterPanierEncours() {
+        return new TraitementAjoutPanierReponse(EnumTypeEcran.ECRAN_PANIER, laCommande);
     }
 
     public TraiterProduitResponse traiterListProduit() {
-        List<Produit> produit = new Produit().getLesProduits();
-        TraiterProduitResponse reponse = new TraiterProduitResponse(EnumTypeEcran.ECRAN_PRODUIT, produit);
+        TraiterProduitResponse reponse = new TraiterProduitResponse(EnumTypeEcran.ECRAN_PRODUIT, produit.getLesProduits());
         return reponse;
     }
 }

@@ -64,7 +64,7 @@
                         <Image url="@../img/menu.png" />
                      </image>
                   </ImageView>
-                 <Button layoutX="73.0" layoutY="3.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="129.0" stylesheets="@../values/style.css" text="Panier">
+                 <Button fx:id="panier_btnPanier" layoutX="73.0" layoutY="3.0" mnemonicParsing="false" prefHeight="23.0" prefWidth="129.0" stylesheets="@../values/style.css" text="Panier">
                     <font>
                       <Font name="Arial" size="10.0" />
                     </font>
