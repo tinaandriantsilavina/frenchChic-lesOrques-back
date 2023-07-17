@@ -14,7 +14,7 @@
             <Font name="Arial Black" size="17.0" />
          </font>
       </Label>
-      <TableView fx:id="tabProduit" layoutX="19.0" layoutY="78.0" prefHeight="260.0" prefWidth="619.0">
+      <TableView fx:id="tabProduit" layoutX="19.0" layoutY="78.0" prefHeight="260.0" prefWidth="629.0">
         <columns>
           <TableColumn fx:id="tabProduit_ref" prefWidth="91.0" text="Ref" />
           <TableColumn fx:id="tabProduit_libelle" prefWidth="172.0" text="Libellé" />
@@ -23,7 +23,7 @@
             <TableColumn fx:id="tabProduit_stock" prefWidth="88.0" text="Stock" />
         </columns>
       </TableView>
-      <TextField fx:id="textFieldRechercheProduit" layoutX="486.0" layoutY="30.0" />
+      <TextField fx:id="textFieldRechercheProduit" layoutX="486.0" layoutY="30.0" prefHeight="26.0" prefWidth="141.0" />
       <Label layoutX="388.0" layoutY="34.0" text="recherche:" />
    </children>
 </AnchorPane>

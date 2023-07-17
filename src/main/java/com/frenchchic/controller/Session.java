@@ -11,7 +11,6 @@ public class Session {
     private static Client client;
     private Commande laCommande;
 
-
     public TraiterConnexionResponse traiterConnexion() {
         return new TraiterConnexionResponse(EnumTypeEcran.ECRAN_ACCUEIL);
     }

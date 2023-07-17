@@ -85,6 +85,9 @@ public class VueJetable extends Application implements Initializable {
     @FXML
     public TableColumn<LigneCommande,String> tabPanier_stock;
 
+    @FXML
+    public Label tabPanier_montantPanier;
+
 
     // produit
     @FXML
@@ -249,6 +252,7 @@ public class VueJetable extends Application implements Initializable {
                     commande.ajouterProduit(produit, perso_quantite.getValue());
                     FXMLLoader panier = Utils.getFxml(VueJetable.PANIER);
                     TraitementAjoutPanierReponse response = laSession.traiterAjoutPanier(produit, perso_quantite.getValue());
+
                     commande.creerPanier();
                     // init Commande
                     tabPanier_setListeCommande(commande, panier.getController());
@@ -292,6 +296,7 @@ public class VueJetable extends Application implements Initializable {
         panier.tabPanier_quantite.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getQuantite())));
         panier.tabPanier_montant.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getPrix())));
         panier.tabPanier_stock.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getProduit().getQuantiteEnStock())));
+        panier.tabPanier_montantPanier.setText(String.valueOf(commande.getMontant()));
     }
 
 
@@ -321,6 +326,7 @@ public class VueJetable extends Application implements Initializable {
         vueProduit.tabProduit_prix.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getPrix())));
         vueProduit.tabProduit_estJour.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().isEstDuJour())));
         vueProduit.tabProduit_stock.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getQuantiteEnStock())));
+
     }
     public void initTextFieldRechercheProduit(VueJetable vueProduit){
         vueProduit.textFieldRechercheProduit.textProperty().addListener(new ChangeListener<String>() {
